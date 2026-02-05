@@ -2,7 +2,7 @@ import { useAtom } from "jotai";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
 import { trackIdAtom } from "@/atoms/playerAtom";
 
-export const MENU = [
+const MENU = [
   { id: "TLDR", title: "TL;DR" },
   { id: "visuals", title: "visuals" },
   { id: "externals", title: "externals" },
