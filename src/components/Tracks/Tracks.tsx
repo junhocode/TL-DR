@@ -1,25 +1,7 @@
 import { motion } from "motion/react";
 import { useAtomValue } from "jotai";
 import { trackIdAtom } from "@/atoms/playerAtom";
-
-interface Track {
-  id: string;
-  title: string;
-  src: string;
-}
-
-interface TrackMenuProps {
-  tracks: Track[];
-  onTrackClick: (id: string, src: string) => void;
-}
-
-export const TRACKS: Track[] = [
-  { id: "01", title: "happy halloween!", src: "/tracks/happyHalloween.wav" },
-  { id: "02", title: "neon", src: "/tracks/neon.wav" },
-  { id: "03", title: "supernova", src: "/tracks/supernova.wav" },
-  { id: "04", title: "neverlast", src: "/tracks/neverlast.wav" },
-  { id: "05", title: "0330", src: "/tracks/0330.wav" },
-];
+import type { TrackMenuProps } from "@/types/track.type";
 
 export const Tracks = ({ tracks, onTrackClick }: TrackMenuProps) => {
   const trackId = useAtomValue(trackIdAtom);
