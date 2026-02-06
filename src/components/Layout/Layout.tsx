@@ -18,7 +18,7 @@ export const Layout = () => {
   }, [isDark]);
 
   return (
-    <div className="w-full flex flex-col min-h-screen bg-background text-foreground transition-colors">
+    <div className="relative w-full flex flex-col min-h-screen bg-background text-foreground transition-colors">
       <Header />
       
       <main className="flex-1">

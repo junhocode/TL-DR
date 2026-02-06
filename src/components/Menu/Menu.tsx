@@ -4,9 +4,9 @@ import { trackIdAtom } from "@/atoms/playerAtom";
 
 const MENU = [
   { id: "TLDR", title: "TL;DR" },
-  { id: "visuals", title: "visuals" },
-  { id: "externals", title: "externals" },
-  { id: "archive", title: "archive" }
+  { id: "visuals", title: "Visuals" },
+  { id: "externals", title: "Externals" },
+  { id: "archive", title: "Archive" }
 ];
 
 export const Menu = () => {

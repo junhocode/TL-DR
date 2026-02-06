@@ -10,6 +10,7 @@ import { External } from "@/components/External/External";
 import { BGLogo } from "@/components/BGLogo/BGLogo";
 import { Visuals } from "@/components/Visuals/Visuals";
 import { VISUALS } from "@/constants/visuals";
+import { Archive } from "@/components/Archive/Archive";
 
 export const Main = ({ onTrackClick }: { onTrackClick: (no: string, src: string) => void }) => {
   const selectedMenu = useAtomValue(selectedMenuAtom);
@@ -41,7 +42,11 @@ export const Main = ({ onTrackClick }: { onTrackClick: (no: string, src: string)
               visuals={VISUALS} />
           )}
 
-  
+          {selectedMenu === "archive" && (
+            <Archive
+              key="archive" />
+          )}
+
             <Lyrics />
 
         </AnimatePresence>
