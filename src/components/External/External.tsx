@@ -1,13 +1,12 @@
 import { motion } from "motion/react";
 
-interface External {
+interface ExternalItem {
   id: string;
   title: string;
   link: string;
 }
 
-export const External = ({ externals }: { externals: External[] }) => {
-
+export const External = ({ externals }: { externals: ExternalItem[] }) => {
   return (
     <ul className="flex flex-col gap-2">
       {externals.map((external, index) => (
@@ -16,12 +15,18 @@ export const External = ({ externals }: { externals: External[] }) => {
           initial={{ opacity: 0, x: 0 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: index * 0.05 }}
-          className="group flex gap-8 cursor-pointer transition-all"
+          className="group flex gap-8 cursor-pointer transition-all last:mt-4"
         >
-          <span className="transition-all opacity-40 hover:opacity-100 group-hover:underline tracking-tight">
-            {external.title}
-          </span>
-
+          <a 
+            href={external.link}
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="w-full"
+          >
+            <span className="transition-all opacity-40 group-hover:opacity-100 group-hover:underline tracking-tight">
+              {external.title}
+            </span>
+          </a>
         </motion.li>
       ))}
     </ul>
