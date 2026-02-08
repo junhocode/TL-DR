@@ -21,7 +21,7 @@ export const Visuals = ({ visuals }: { visuals: Visual[] }) => {
             href={visual.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex gap-8 cursor-pointer transition-all text-smart-opacity underline-offset-4 hover:underline"
+            className="flex gap-8 cursor-pointer transition-all text-smart-opacity hover:underline"
           >
             {visual.title}
           </a>

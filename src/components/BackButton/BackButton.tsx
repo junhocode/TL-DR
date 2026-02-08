@@ -21,10 +21,9 @@ export const BackButton = () => {
     <Button
       variant="ghost" 
       onClick={handleBack} 
-      className="md:hidden mb-6 opacity-40 flex items-center gap-2 hover:opacity-100 transition-opacity"
+      className="md:hidden mb-6 flex items-center gap-2 text-smart-opacity hover:underline"
     >
-      <span className="text-xs">←</span>
-      <span className="text-[10px] tracking-widest uppercase">Back</span>
+      <span >← Back</span>
     </Button>
   );
 };
