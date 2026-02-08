@@ -3,6 +3,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { trackIdAtom } from "@/atoms/playerAtom";
 import { isMutedAtom } from "@/atoms/muteAtom";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
+import { TRACKS } from "@/constants/tracks";
 
 export const useAudio = () => {
   const [trackId, setTrackId] = useAtom(trackIdAtom);
@@ -33,6 +34,9 @@ export const useAudio = () => {
 
   const handleTrackClick = (id: string, src: string) => {
     if (trackId === id) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
       setTrackId(null);
       return;
     }
@@ -46,9 +50,19 @@ export const useAudio = () => {
     audioRef.current = audio;
 
     audio.onloadedmetadata = () => setDuration(audio.duration);
-    audio.onended = () => setTrackId(null);
+
+    audio.onended = () => {
+      const currentIndex = TRACKS.findIndex((t) => t.id === id);
+      const nextTrack = TRACKS[currentIndex + 1];
+
+      if (nextTrack) {
+        handleTrackClick(nextTrack.id, nextTrack.src);
+      } else { 
+        setTrackId(null);
+      }
+    };
+
     audio.play();
-    
     setTrackId(id);
   };
 
