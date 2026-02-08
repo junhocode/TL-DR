@@ -99,8 +99,17 @@
   }
 }
 
-.anton-regular {
-  font-family: "Anton", sans-serif;
-  font-weight: 400;
-  font-style: normal;
+@layer components {
+  .text-smart-opacity {
+    @apply opacity-80;
+  }
+
+  @media (hover: hover) {
+    .text-smart-opacity {
+      @apply opacity-40;
+    }
+    .group:hover .text-smart-opacity {
+      @apply opacity-80;
+    }
+  }
 }
