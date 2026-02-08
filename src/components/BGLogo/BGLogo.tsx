@@ -9,7 +9,7 @@ export const BGLogo = () => {
     const isPlaying = useAtomValue(isPlayingAtom);
 
     return (
-        <div className="fixed pointer-events-none select-none z-0 right-24 bottom-28">
+        <div className="fixed pointer-events-none select-none z-0 right-10 bottom-20 md:right-24 md:bottom-28">
             <motion.img
                 src={logoSrc}
                 alt="bg-logo"
