@@ -110,7 +110,7 @@
     }
     
     .text-smart-opacity:hover {
-      @apply opacity-80 underline;
+      @apply opacity-80;
     }
   }
 }

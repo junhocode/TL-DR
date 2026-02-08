@@ -24,7 +24,7 @@ export const Tracks = ({ tracks, onTrackClick }: TrackMenuProps) => {
               variant="ghost"
               onClick={() => onTrackClick(track.id, track.src)}
               className={`
-                flex w-full h-auto flex justify-start gap-16 text-base 
+                flex w-full h-auto flex justify-start gap-16 text-base hover:underline 
                 ${isPlaying ? "opacity-80" : "text-smart-opacity"}
               `}
             >

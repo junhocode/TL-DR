@@ -22,30 +22,27 @@ export const Lyrics = () => {
       animate={{ opacity: 1, x: 0 }}
       exit={{ opacity: 0, x: 10 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      className="flex flex-col gap-8 max-w-md z-10"
+      className="flex flex-col gap-3 z-10"
     >
-      <div className="flex flex-col gap-1 border-b border-foreground/10 pb-4">
-        <h2 className="text-xl tracking-widest font-light opacity-80">
+      <div className="flex flex-col border-b border-foreground/10 pb-4">
+        <h2 className="text-xl opacity-80 tracking-widest">
           {playingNo}. {currentTrack.title}
         </h2>
       </div>
 
       <div 
         className="
-          text-[15px] 
           leading-[2.2] 
-          opacity-70 
           whitespace-pre-wrap 
-          max-h-[60vh] 
+          max-h-[65vh] 
           overflow-y-auto 
-          scrollbar-hide 
-          font-light 
+          scrollbar-hide  
           tracking-tight
-          pr-4
+          opacity-80
         "
       >
         {lyricsText || (
-          <span className="italic opacity-30">Lyrics not found.</span>
+          <span>Lyrics not found.</span>
         )}
       </div>
     </motion.div>
