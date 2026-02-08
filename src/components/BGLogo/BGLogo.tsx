@@ -15,11 +15,15 @@ export const BGLogo = () => {
                 alt="bg-logo"
                 className="w-[150px] md:w-[200px] lg:w-[250px] opacity-15"
                 animate={{
-                    rotate: isPlaying ? 360 : -12,
+                    rotate: isPlaying ? [0, 360] : -12,
                 }}
                 transition={{
                     rotate: isPlaying 
-                        ? { repeat: Infinity, duration: 20, ease: "linear" } 
+                        ? { 
+                            repeat: Infinity, 
+                            duration: 20, 
+                            ease: "linear",
+                          } 
                         : { duration: 0.8 },
                 }}
             />
