@@ -34,7 +34,7 @@ export const Lyrics = () => {
         className="
           leading-[2.2] 
           whitespace-pre-wrap 
-          max-h-[65vh] 
+          max-h-[60vh] 
           overflow-y-auto 
           scrollbar-hide  
           tracking-tight
