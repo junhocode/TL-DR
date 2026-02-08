@@ -101,15 +101,16 @@
 
 @layer components {
   .text-smart-opacity {
-    @apply opacity-80;
+    @apply opacity-80 transition-all;
   }
 
   @media (hover: hover) {
     .text-smart-opacity {
       @apply opacity-40;
     }
-    .group:hover .text-smart-opacity {
-      @apply opacity-80;
+    
+    .text-smart-opacity:hover {
+      @apply opacity-80 underline;
     }
   }
 }

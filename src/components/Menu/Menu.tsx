@@ -1,15 +1,14 @@
 import { useAtom } from "jotai";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
 import { trackIdAtom } from "@/atoms/playerAtom";
+import { Button } from "@/components/ui/button";
 
-const MENU = [
-  { id: "TLDR", title: "TL;DR" },
-  { id: "visuals", title: "Visuals" },
-  { id: "externals", title: "Externals" },
-  { id: "archive", title: "Archive" }
-];
+interface Menu {
+  id: string;
+  title: string;
+}
 
-export const Menu = () => {
+export const Menu = ({ menu }: { menu: Menu[] }) => {
   const [selectedId, setSelectedId] = useAtom(selectedMenuAtom);
   const [, setPlayingNo] = useAtom(trackIdAtom);
 
@@ -19,16 +18,24 @@ export const Menu = () => {
   };
 
   return (
-    <nav className="flex flex-col gap-4">
-      {MENU.map((item) => (
-        <div
-          key={item.id}
-          onClick={() => handleSelect(item.id)}
-          className={`transition-all cursor-pointer hover:underline ${selectedId === item.id ? "opacity-100" : "opacity-40 hover:opacity-100"}`}
-        >
-          {item.title}
-        </div>
-      ))}
-    </nav>
+    <div className="flex flex-col gap-4">
+      {menu.map((menu) => {
+        const isActive = selectedId === menu.id;
+
+        return (
+          <Button
+            key={menu.id}
+            variant="ghost"
+            onClick={() => handleSelect(menu.id)}
+            className={`
+              flex justify-start group text-base
+              ${isActive ? "opacity-80" : "text-smart-opacity"}
+            `}
+          >
+            {menu.title}
+          </Button>
+        );
+      })}
+    </div>
   );
 };
