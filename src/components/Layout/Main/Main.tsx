@@ -21,12 +21,12 @@ export const Main = ({ onTrackClick }: { onTrackClick: (no: string, src: string)
   const playingNo = useAtomValue(trackIdAtom);
 
   return (
-    <main className="relative w-full pl-12 pr-8 md:px-20 md:py-20 min-h-[calc(100vh-80px)] overflow-y-auto ">
+    <main className="relative w-full pl-12 pr-8 md:px-20 md:pt-8 md:pb-20 min-h-[calc(100vh-80px)] overflow-y-auto ">
       <BGLogo />
 
       <div className="flex flex-col md:flex-row h-auto gap-10 md:gap-40 items-start z-10 relative">
         
-        <div className={`py-10 ${selectedMenu ? "hidden md:block" : "block"}`}>
+        <div className={`${selectedMenu ? "hidden md:block" : "block"}`}>
           <Menu menu={MENU} />
         </div>
 
@@ -34,7 +34,7 @@ export const Main = ({ onTrackClick }: { onTrackClick: (no: string, src: string)
           {selectedMenu && (
             <motion.div 
               key={selectedMenu}
-              className={`py-9 ${playingNo ? "hidden md:block" : "block"} w-full md:w-auto`}
+              className={`${playingNo ? "hidden md:block" : "block"} w-full md:w-auto`}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
