@@ -5,4 +5,5 @@ export const ARCHIVES: Archive[] = [
   { id: "2", src: "/images/wrist_2.jpg" },
   { id: "3", src: "/images/wrist_3.jpg" },
   { id: "4", src: "/images/wrist_4.jpg" },
+  { id: "5", src: "/images/wrist_5.jpg" },
 ];
