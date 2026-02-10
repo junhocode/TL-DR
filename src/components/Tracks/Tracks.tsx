@@ -32,9 +32,15 @@ export const Tracks = ({ tracks, onTrackClick }: TrackMenuProps) => {
                 {track.id}
               </span>
 
-              <span>
-                {track.title}
-              </span>
+              <span
+  className={`
+    inline-block
+    ${track.title === "happy halloween!" ? "pl-0.5" : ""}
+  `}
+>
+  {track.title}
+</span>
+
             </Button>
           </motion.li>
         );
