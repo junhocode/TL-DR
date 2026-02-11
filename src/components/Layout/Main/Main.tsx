@@ -2,7 +2,6 @@ import { useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
 import { trackIdAtom } from "@/atoms/playerAtom";
-
 import { Menu } from "@/components/Menu/Menu";
 import { Tracks } from "@/components/Tracks/Tracks";
 import { Lyrics } from "@/components/Lyrics/Lyrics";
@@ -11,7 +10,6 @@ import { Visuals } from "@/components/Visuals/Visuals";
 import { Archives } from "@/components/Archives/Archives";
 import { BGLogo } from "@/components/BGLogo/BGLogo";
 import { BackButton } from "@/components/BackButton/BackButton";
-
 import { TRACKS } from "@/constants/tracks";
 import { EXTERNAL } from "@/constants/external";
 import { VISUALS } from "@/constants/visuals";
@@ -40,12 +38,10 @@ export const Main = ({
       <BGLogo />
 
       <div className="relative z-10 flex flex-col md:flex-row gap-10 md:gap-40 items-start">
-        {/* MENU */}
         <div className={`py-5 ${selectedMenu ? "hidden md:block" : "block"}`}>
           <Menu menu={MENU} />
         </div>
 
-        {/* MAIN CONTENT */}
         <AnimatePresence mode="wait">
           {selectedMenu && (
             <motion.div
@@ -56,7 +52,7 @@ export const Main = ({
               className={`
                 w-full md:w-auto
                 ${playingNo ? "hidden md:block" : "block"}
-                ${shouldApplyPadding ? "py-10" : ""}
+                ${shouldApplyPadding ? "py-4" : ""}
               `}
             >
               <BackButton />
@@ -77,7 +73,6 @@ export const Main = ({
           )}
         </AnimatePresence>
 
-        {/* LYRICS */}
         <AnimatePresence>
           {playingNo && (
             <motion.div
@@ -85,7 +80,7 @@ export const Main = ({
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: 20 }}
-              className="w-full md:w-auto py-10"
+              className="w-full md:w-auto"
             >
               <BackButton />
               <Lyrics />
