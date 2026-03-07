@@ -1,10 +1,6 @@
 import { motion } from "motion/react";
 
-interface External {
-  id: string;
-  title: string;
-  link: string;
-}
+
 
 export const External = ({ externals }: { externals: External[] }) => {
   return (

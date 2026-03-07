@@ -1,5 +1,5 @@
 export const LYRICS: Record<string, string> = {
-    "01": `Baby girl what you mean?\n\
+"01": `Baby girl what you mean?\n\
 Pretendin' like a casualty\n\
 Blamin' every fuckin' thing on me\n\
 Like I'm your enemy, yeah\n\
@@ -47,7 +47,7 @@ Baby girl what you mean?\n\
 Blamin' everything on me\n\
 Pretendin' like a casualty\n\
 Happy Halloween`,
-    "02": `Yeah, skipped all them pills\n\
+"02": `Yeah, skipped all them pills\n\
 I don't know how to be nice\n\
 Better catch the sign, 'cause I never say shit twice\n\
 Dripped out in diamonds, but my fit 'ready shines\n\
@@ -87,7 +87,7 @@ I hit Milan, just to see broski, ouu\n\
 My ride or dies, can't ever leave 'em behind\n\
 You say you tight, but you ain't in my sight\n\
 Now it feels alright, yeah, huh`,
-    "03": `Eyes half closed, I feel so stoned, yeah\n\
+"03": `Eyes half closed, I feel so stoned, yeah\n\
 I gotta keep it on the low\n\
 61440, now you know, yeah\n\
 That's the code, how we go\n\
@@ -133,7 +133,7 @@ But still, I don't wanna rewind\n\
 Yeah, all this time\n\
 But still, I don't wanna rewind\n\
 Yeah, all this time`,
-    "04": `Hate when the silence gets too loud\n\
+"04": `Hate when the silence gets too loud\n\
 Let's hide away somewhere safe and sound\n\
 Was it all green while I was out of town?\n\
 Never wanted to see you falling down\n\
@@ -187,7 +187,7 @@ I'd better know, next time, is it mine?\n\
 Time's flyin' too fast, takin' all my breathin'\n\
 (Comes on)\n\
 Nothin' everlasts, so won't I, yeah`,
-    "05": `It is half past three, and I know it is time to leave\n\
+"05": `It is half past three, and I know it is time to leave\n\
 So serene that I can even hear you bleed\n\
 All red, what else am I supposed to see?\n\
 Even if I don't sing melodies again, would you still count on me?\n\
@@ -203,4 +203,4 @@ It is half past three, and I know it is time to leave\n\
 So serene that I can even hear you bleed\n\
 All red, what else am I supposed to see?\n\
 Even if I don't sing melodies again, would you still count on me?\n`,      
-};
+}
