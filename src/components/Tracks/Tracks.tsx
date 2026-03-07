@@ -1,15 +1,17 @@
 import { motion } from "motion/react";
 import { useAtomValue } from "jotai";
-import { isPlayingAtom } from "@/atoms/playerAtom";
+import { trackIdAtom } from "@/atoms/playerAtom";
 import { Button } from "@/components/ui/button";
 import type { TrackMenuProps } from "@/types/track.type";
 
 export const Tracks = ({ tracks, onTrackClick }: TrackMenuProps) => {
-  const isPlaying = useAtomValue(isPlayingAtom);
+  const trackId = useAtomValue(trackIdAtom);
 
   return (
     <ul className="flex flex-col gap-2">
       {tracks.map((track, index) => {
+        const isPlaying = trackId === track.id;
+
         return (
           <motion.li
             key={track.id}
@@ -31,7 +33,6 @@ export const Tracks = ({ tracks, onTrackClick }: TrackMenuProps) => {
               </span>
 
               <span
-                // Happy Halloween stands out in naked eye, needs manual padding
                 className={`inline-block ${track.title === "happy halloween!" ? "pl-0.5" : ""}`}
               >
                 {track.title}
