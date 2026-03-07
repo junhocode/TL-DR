@@ -1,12 +1,7 @@
 import { motion } from "motion/react";
+import type { External } from "@/types/external.type";
 
-interface Visual {
-  id: string;
-  title: string;
-  link: string;
-}
-
-export const Visuals = ({ visuals }: { visuals: Visual[] }) => {
+export const Visuals = ({ visuals }: { visuals: External[] }) => {
   return (
     <ul className="flex flex-col gap-2">
       {visuals.map((visual, index) => (
@@ -29,4 +24,4 @@ export const Visuals = ({ visuals }: { visuals: Visual[] }) => {
       ))}
     </ul>
   );
-};
+}
