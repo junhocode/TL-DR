@@ -27,14 +27,15 @@ export const Main = ({
   const shouldApplyPadding =
     selectedMenu !== "archive" && selectedMenu !== "menu";
 
+  const menuContent: Record<string, React.ReactNode> = {
+    TLDR: <Tracks tracks={TRACKS} onTrackClick={onTrackClick} />,
+    externals: <Externals externals={EXTERNAL} />,
+    visuals: <Visuals visuals={VISUALS} />,
+    archive: <Archives archives={ARCHIVES} />,
+  };
+
   return (
-    <main className="
-      relative w-full
-      pl-12 pr-8
-      md:px-20 md:pt-8 md:pb-20
-      min-h-[calc(100vh-80px)]
-      overflow-y-auto
-    ">
+    <main className="relative w-full pl-12 pr-8 md:px-20 md:pt-8 md:pb-20 min-h-[calc(100vh-80px)] overflow-y-auto">
       <BGLogo />
 
       <div className="relative z-10 flex flex-col md:flex-row gap-10 md:gap-40 items-start">
@@ -49,26 +50,10 @@ export const Main = ({
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -10 }}
-              className={`
-                w-full md:w-auto
-                ${playingNo ? "hidden md:block" : "block"}
-                ${shouldApplyPadding ? "py-4" : ""}
-              `}
+              className={`w-full md:w-auto ${playingNo ? "hidden md:block" : "block"} ${shouldApplyPadding ? "py-4" : ""}`}
             >
               <BackButton />
-
-              {selectedMenu === "TLDR" && (
-                <Tracks tracks={TRACKS} onTrackClick={onTrackClick} />
-              )}
-              {selectedMenu === "externals" && (
-                <Externals externals={EXTERNAL} />
-              )}
-              {selectedMenu === "visuals" && (
-                <Visuals visuals={VISUALS} />
-              )}
-              {selectedMenu === "archive" && (
-                <Archives archives={ARCHIVES} />
-              )}
+              {menuContent[selectedMenu]}
             </motion.div>
           )}
         </AnimatePresence>
