@@ -7,7 +7,7 @@ export const Archives = ({ archives }: { archives: Archive[] }) => {
         <div key={index}>
           <img
             src={img.src}
-            alt="archive"
+            alt={img.id}
             className="w-full md:w-64"
           />
         </div>
