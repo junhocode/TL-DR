@@ -2,10 +2,10 @@ import { useAtomValue } from "jotai";
 import { AnimatePresence, motion } from "motion/react";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
 import { trackIdAtom } from "@/atoms/playerAtom";
-import { Menu } from "@/components/Menu/Menu";
+import { Menus } from "@/components/Menus/Menus";
 import { Tracks } from "@/components/Tracks/Tracks";
 import { Lyrics } from "@/components/Lyrics/Lyrics";
-import { External } from "@/components/Externals/Externals";
+import { Externals } from "@/components/Externals/Externals";
 import { Visuals } from "@/components/Visuals/Visuals";
 import { Archives } from "@/components/Archives/Archives";
 import { BGLogo } from "@/components/BGLogo/BGLogo";
@@ -39,7 +39,7 @@ export const Main = ({
 
       <div className="relative z-10 flex flex-col md:flex-row gap-10 md:gap-40 items-start">
         <div className={`py-5 ${selectedMenu ? "hidden md:block" : "block"}`}>
-          <Menu menu={MENU} />
+          <Menus menu={MENU} />
         </div>
 
         <AnimatePresence mode="wait">
@@ -61,7 +61,7 @@ export const Main = ({
                 <Tracks tracks={TRACKS} onTrackClick={onTrackClick} />
               )}
               {selectedMenu === "externals" && (
-                <External externals={EXTERNAL} />
+                <Externals externals={EXTERNAL} />
               )}
               {selectedMenu === "visuals" && (
                 <Visuals visuals={VISUALS} />

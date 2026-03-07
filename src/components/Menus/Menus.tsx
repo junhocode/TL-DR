@@ -1,16 +1,12 @@
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
 import { trackIdAtom } from "@/atoms/playerAtom";
 import { Button } from "@/components/ui/button";
+import type { Menu } from "@/types/menu.type";
 
-interface Menu {
-  id: string;
-  title: string;
-}
-
-export const Menu = ({ menu }: { menu: Menu[] }) => {
+export const Menus = ({ menu }: { menu: Menu[] }) => {
   const [selectedId, setSelectedId] = useAtom(selectedMenuAtom);
-  const [, setPlayingNo] = useAtom(trackIdAtom);
+  const setPlayingNo = useSetAtom(trackIdAtom);
 
   const handleSelect = (id: string) => {
     setSelectedId(selectedId === id ? null : id);

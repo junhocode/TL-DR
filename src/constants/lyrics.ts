@@ -202,5 +202,5 @@ you'd keep me close, but we too grown, yeah\n\
 It is half past three, and I know it is time to leave\n\
 So serene that I can even hear you bleed\n\
 All red, what else am I supposed to see?\n\
-Even if I don't sing melodies again, would you still count on me?\n`,      
+Even if I don't sing melodies again, would you still count on me?\n`  
 }

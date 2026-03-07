@@ -18,4 +18,4 @@ export const ThemeToggle = () => {
       {isDark ? "\u2609" : "\u263D"}
     </Button>
   );
-};
+}

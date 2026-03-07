@@ -1,7 +1,6 @@
 import { motion } from "motion/react";
 import type { External } from "@/types/external.type";
 
-
 export const Externals = ({ externals }: { externals: External[] }) => {
   return (
     <ul className="flex flex-col gap-2">
@@ -25,4 +24,4 @@ export const Externals = ({ externals }: { externals: External[] }) => {
       ))}
     </ul>
   );
-};
+}
