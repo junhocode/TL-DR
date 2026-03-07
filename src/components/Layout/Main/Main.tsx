@@ -5,7 +5,7 @@ import { trackIdAtom } from "@/atoms/playerAtom";
 import { Menu } from "@/components/Menu/Menu";
 import { Tracks } from "@/components/Tracks/Tracks";
 import { Lyrics } from "@/components/Lyrics/Lyrics";
-import { External } from "@/components/External/External";
+import { External } from "@/components/Externals/Externals";
 import { Visuals } from "@/components/Visuals/Visuals";
 import { Archives } from "@/components/Archives/Archives";
 import { BGLogo } from "@/components/BGLogo/BGLogo";

@@ -18,15 +18,15 @@ export const BGLogo = () => {
                     rotate: isPlaying ? [0, 360] : -12,
                 }}
                 transition={{
-                    rotate: isPlaying 
-                        ? { 
-                            repeat: Infinity, 
-                            duration: 20, 
+                    rotate: isPlaying
+                        ? {
+                            repeat: Infinity,
+                            duration: 20,
                             ease: "linear",
-                          } 
+                        }
                         : { duration: 0.8 },
                 }}
             />
         </div>
     )
-};
+}

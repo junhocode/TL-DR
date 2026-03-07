@@ -1,8 +1,8 @@
 import { motion } from "motion/react";
+import type { External } from "@/types/external.type";
 
 
-
-export const External = ({ externals }: { externals: External[] }) => {
+export const Externals = ({ externals }: { externals: External[] }) => {
   return (
     <ul className="flex flex-col gap-2">
       {externals.map((external, index) => (
