@@ -1,4 +1,4 @@
-import { useAtom, useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import { hasMenuAtom, selectedMenuAtom } from "@/atoms/menuAtom";
 import { isPlayingAtom, trackIdAtom } from "@/atoms/playerAtom";
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,9 @@ export const BackButton = () => {
   const setSelectedMenu = useSetAtom(selectedMenuAtom);
   const setPlayingNo = useSetAtom(trackIdAtom);
 
-  if (!hasMenu && !isPlaying) return null;
+  const isVisible = hasMenu && !isPlaying
+
+  if (!isVisible) return null;
 
   const handleBack = () => {
     if (isPlaying) {
@@ -18,7 +20,7 @@ export const BackButton = () => {
     } else {
       setSelectedMenu(null);
     }
-  };
+  }
 
   return (
     <Button
