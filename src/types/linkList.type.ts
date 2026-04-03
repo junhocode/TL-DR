@@ -1,4 +1,4 @@
-export interface External {
+export interface LinkListItem {
   id: string;
   title: string;
   link: string;

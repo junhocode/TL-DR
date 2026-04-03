@@ -1,6 +1,6 @@
-import type { Archive } from "@/types/archive.type";
+import type { ArchiveItem } from "@/types/archive.type";
 
-export const ARCHIVES: Archive[] = [
+export const ARCHIVE: ArchiveItem[] = [
   { id: "1", src: "/images/wrist_1.jpg" },
   { id: "2", src: "/images/wrist_2.jpg" },
   { id: "3", src: "/images/wrist_3.jpg" },

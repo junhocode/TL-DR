@@ -1,4 +1,4 @@
-export interface Archive {
+export interface ArchiveItem {
   id: string;
   src: string;
 }
