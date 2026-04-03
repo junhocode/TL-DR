@@ -1,78 +1,63 @@
 import { useAtomValue } from "jotai";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
 import { trackIdAtom } from "@/atoms/playerAtom";
-import { Menus } from "@/components/Menus/Menus";
+import { useIsMobile } from "@/hooks/useIsMobile";
+import { Menu } from "@/components/Menu/Menu";
 import { Tracks } from "@/components/Tracks/Tracks";
 import { Lyrics } from "@/components/Lyrics/Lyrics";
-import { Externals } from "@/components/Externals/Externals";
-import { Visuals } from "@/components/Visuals/Visuals";
-import { Archives } from "@/components/Archives/Archives";
+import { LinkList } from "@/components/LinkList/LinkList";
+import { Archive } from "@/components/Archive/Archive";
 import { BGLogo } from "@/components/BGLogo/BGLogo";
-import { BackButton } from "@/components/BackButton/BackButton";
 import { TRACKS } from "@/constants/tracks";
 import { EXTERNAL } from "@/constants/external";
 import { VISUALS } from "@/constants/visuals";
 import { MENU } from "@/constants/menu";
-import { ARCHIVES } from "@/constants/archives";
+import { ARCHIVE } from "@/constants/archive";
 
-export const Main = ({
-  onTrackClick,
-}: {
-  onTrackClick: (no: string, src: string) => void;
-}) => {
+export const Main = ({ onTrackClick }: { onTrackClick: (no: string, src: string) => void }) => {
   const selectedMenu = useAtomValue(selectedMenuAtom);
   const playingNo = useAtomValue(trackIdAtom);
-
-  const shouldApplyPadding =
-    selectedMenu !== "archive" && selectedMenu !== "menu";
+  const isMobile = useIsMobile();
 
   const menuContent: Record<string, React.ReactNode> = {
     TLDR: <Tracks tracks={TRACKS} onTrackClick={onTrackClick} />,
-    externals: <Externals externals={EXTERNAL} />,
-    visuals: <Visuals visuals={VISUALS} />,
-    archive: <Archives archives={ARCHIVES} />,
+    externals: <LinkList items={EXTERNAL} />,
+    visuals: <LinkList items={VISUALS} />,
+    archive: <Archive archive={ARCHIVE} />,
   };
 
   return (
-    <main className="relative w-full pl-12 pr-8 md:px-20 md:pt-8 md:pb-20 min-h-[calc(100vh-80px)] overflow-y-auto">
-      <BGLogo />
+  <main className="relative w-full px-12 md:px-20 md:pt-8 pb-16 md:pb-20 min-h-[calc(100vh-80px)] overflow-y-auto scrollbar-gutter-stable">
+    <BGLogo />
 
-      <div className="relative z-10 flex flex-col md:flex-row gap-10 md:gap-40 items-start">
-        <div className={`py-5 ${selectedMenu ? "hidden md:block" : "block"}`}>
-          <Menus menu={MENU} />
-        </div>
-
+    {isMobile ? (
+      <div className="relative z-10 py-2">
         <AnimatePresence mode="wait">
-          {selectedMenu && (
-            <motion.div
-              key={selectedMenu}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -10 }}
-              className={`w-full md:w-auto ${playingNo ? "hidden md:block" : "block"} ${shouldApplyPadding ? "py-4" : ""}`}
-            >
-              <BackButton />
-              {menuContent[selectedMenu]}
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {playingNo && (
-            <motion.div
-              key="lyrics-container"
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 20 }}
-              className="w-full md:w-auto"
-            >
-              <BackButton />
-              <Lyrics />
-            </motion.div>
+          {playingNo ? (
+            <Lyrics key="lyrics" />
+          ) : selectedMenu ? (
+            <div key={selectedMenu}>{menuContent[selectedMenu]}</div>
+          ) : (
+            <Menu key="menu" menu={MENU} />
           )}
         </AnimatePresence>
       </div>
-    </main>
-  );
+    ) : (
+      <div className="relative z-10 flex flex-row gap-40 items-start py-5">
+        <div className="shrink-0">
+          <Menu menu={MENU} />
+        </div>
+
+      <div className={`relative ${selectedMenu === "archive" ? "flex-1 min-w-0" : "w-full md:w-auto shrink-0"}`}>
+        <AnimatePresence mode="wait">
+          {selectedMenu && menuContent[selectedMenu]}
+        </AnimatePresence>
+      </div>
+
+        <Lyrics />
+      </div>
+    )}
+  </main>
+);
 };
