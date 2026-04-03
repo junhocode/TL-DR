@@ -21,7 +21,7 @@ export const BackButton = () => {
       onClick={handleBack}
       className="md:hidden flex items-center gap-2 text-smart-opacity hover:underline"
     >
-      <span >← Back</span>
+      ← Back
     </Button>
   );
 };
