@@ -1,3 +1,4 @@
+// Footer.tsx
 import { motion } from "motion/react";
 import { useAudioTicker } from "@/hooks/useAudioTicker";
 
@@ -11,36 +12,32 @@ export const Footer = ({ audio, isPlaying, duration }: FooterProps) => {
   const {
     imageUnitWidth,
     visualX,
-    handleDragStart,
-    handleDragEnd,
-    handleDrag
+    handlePointerDown,
+    handlePointerMove,
+    handlePointerUp,
   } = useAudioTicker({ audio, isPlaying, duration });
 
   return (
     <footer
-      style={{ 
-        pointerEvents: isPlaying ? "auto" : "none",
-        backgroundColor: "black"
-      }}
-      className="fixed bottom-0 left-0 w-full h-12 overflow-hidden z-50 border-none"
+      className={`fixed bottom-0 left-0 w-full h-12 overflow-hidden z-50 bg-black ${isPlaying ? "pointer-events-auto" : "pointer-events-none"}`}
     >
       {imageUnitWidth > 0 && (
         <motion.div
-          drag="x"
           style={{ x: visualX }}
-          onDrag={handleDrag}
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-          className="absolute top-0 flex h-full cursor-grab active:cursor-grabbing"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={handlePointerUp}
+          onPointerLeave={handlePointerUp}
+          className="absolute top-0 flex h-full cursor-grab active:cursor-grabbing touch-none"
         >
           <div
             style={{
-              width: "1000vw", 
-              marginLeft: "-400vw", 
+              width: "1000vw",
+              marginLeft: "-400vw",
               backgroundImage: "url('/images/wrist_band.jpg')",
-              backgroundSize: `${imageUnitWidth + 1}px 100%`,
+              backgroundSize: `${imageUnitWidth}px 100%`,
               backgroundRepeat: "repeat-x",
-              willChange: "transform"
+              willChange: "transform",
             }}
             className="h-full"
           />

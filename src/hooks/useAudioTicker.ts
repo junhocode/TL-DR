@@ -1,10 +1,12 @@
-import { useState, useRef, useEffect } from "react";
-import { useMotionValue, useAnimationFrame, useTransform } from "motion/react";
+// hooks/useAudioTicker.ts - rawX 대신 tickerX 사용
+import { useState, useRef, useEffect, useCallback } from "react";
+import { useAnimationFrame, useTransform } from "motion/react";
+import { tickerX } from "@/atoms/tickerX";
 
-const BASE_SPEED = 0.8; 
+const BASE_SPEED = 0.8;
 const ACCEL_STEP = 0.04;
-const FPS = 60; 
-const PIXELS_PER_SECOND = BASE_SPEED * FPS; 
+const FPS = 60;
+const PIXELS_PER_SECOND = BASE_SPEED * FPS;
 const FOOTER_HEIGHT = 48;
 
 interface UseAudioTickerProps {
@@ -16,15 +18,14 @@ interface UseAudioTickerProps {
 export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerProps) => {
   const [imageUnitWidth, setImageUnitWidth] = useState(0);
 
-  const rawX = useMotionValue(0);
-  
-  const visualX = useTransform(rawX, (v) => {
+  const visualX = useTransform(tickerX, (v) => {
     if (imageUnitWidth === 0) return 0;
     return ((v % imageUnitWidth) - imageUnitWidth) % imageUnitWidth;
   });
 
   const currentSpeed = useRef(0);
   const isDragging = useRef(false);
+  const lastPointerX = useRef(0);
 
   useEffect(() => {
     const img = new Image();
@@ -33,49 +34,54 @@ export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerPro
       const aspectRatio = img.naturalWidth / img.naturalHeight;
       const unitWidth = Math.ceil(FOOTER_HEIGHT * aspectRatio);
       setImageUnitWidth(unitWidth);
-      
+
       if (audio) {
-        rawX.set(-(audio.currentTime * PIXELS_PER_SECOND));
+        tickerX.set(-(audio.currentTime * PIXELS_PER_SECOND));
       }
     };
-  }, [audio, rawX]);
+  }, [audio]);
 
   useAnimationFrame(() => {
     if (imageUnitWidth === 0 || isDragging.current) return;
 
     const targetSpeed = isPlaying ? BASE_SPEED : 0;
     currentSpeed.current += (targetSpeed - currentSpeed.current) * ACCEL_STEP;
-    
+
     if (isPlaying && audio) {
-      rawX.set(-(audio.currentTime * PIXELS_PER_SECOND));
+      tickerX.set(-(audio.currentTime * PIXELS_PER_SECOND));
     } else {
-      rawX.set(rawX.get() - currentSpeed.current);
+      tickerX.set(tickerX.get() - currentSpeed.current);
     }
   });
 
-  const handleDragStart = () => {
+  const handlePointerDown = useCallback((e: React.PointerEvent) => {
     isDragging.current = true;
-  };
+    lastPointerX.current = e.clientX;
+    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+  }, []);
 
-  const handleDragEnd = () => {
+  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+    if (!isDragging.current) return;
+    const delta = e.clientX - lastPointerX.current;
+    lastPointerX.current = e.clientX;
+    tickerX.set(tickerX.get() + delta);
+  }, []);
+
+  const handlePointerUp = useCallback(() => {
+    if (!isDragging.current) return;
     isDragging.current = false;
     if (!audio || duration === 0) return;
 
-    const totalMoved = Math.abs(rawX.get());
+    const totalMoved = Math.abs(tickerX.get());
     const calculatedTime = (totalMoved / PIXELS_PER_SECOND) % duration;
-    
     audio.currentTime = calculatedTime;
-  };
-
-  const handleDrag = (_: any, info: { delta: { x: number } }) => {
-    rawX.set(rawX.get() + info.delta.x);
-  };
+  }, [audio, duration]);
 
   return {
     imageUnitWidth,
     visualX,
-    handleDragStart,
-    handleDragEnd,
-    handleDrag
+    handlePointerDown,
+    handlePointerMove,
+    handlePointerUp,
   };
 };
