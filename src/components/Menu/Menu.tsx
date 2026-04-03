@@ -1,10 +1,12 @@
 import { useAtom, useSetAtom } from "jotai";
+import { motion } from "motion/react";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
 import { trackIdAtom } from "@/atoms/playerAtom";
+import { PAGE_TRANSITION } from "@/constants/motion";
 import { Button } from "@/components/ui/button";
-import type { Menu } from "@/types/menu.type";
+import type { MenuItem } from "@/types/menu.type";
 
-export const Menus = ({ menu }: { menu: Menu[] }) => {
+export const Menu = ({ menu }: { menu: MenuItem[] }) => {
   const [selectedId, setSelectedId] = useAtom(selectedMenuAtom);
   const setPlayingNo = useSetAtom(trackIdAtom);
 
@@ -14,24 +16,24 @@ export const Menus = ({ menu }: { menu: Menu[] }) => {
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      {menu.map((menu) => {
-        const isActive = selectedId === menu.id;
+    <motion.div {...PAGE_TRANSITION} className="flex flex-col gap-4">
+      {menu.map((item) => {
+        const isActive = selectedId === item.id;
 
         return (
           <Button
-            key={menu.id}
+            key={item.id}
             variant="ghost"
-            onClick={() => handleSelect(menu.id)}
+            onClick={() => handleSelect(item.id)}
             className={`
               flex justify-start group text-base hover:underline
               ${isActive ? "opacity-80" : "text-smart-opacity"}
             `}
           >
-            {menu.title}
+            {item.title}
           </Button>
         );
       })}
-    </div>
+    </motion.div>
   );
 };
