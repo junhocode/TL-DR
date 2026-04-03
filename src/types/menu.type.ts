@@ -1,4 +1,6 @@
+export type MenuId = "TLDR" | "visuals" | "externals" | "archive";
+
 export interface MenuItem {
-  id: string;
+  id: MenuId;
   title: string;
 }

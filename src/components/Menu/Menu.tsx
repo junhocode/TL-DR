@@ -4,13 +4,13 @@ import { selectedMenuAtom } from "@/atoms/menuAtom";
 import { trackIdAtom } from "@/atoms/playerAtom";
 import { PAGE_TRANSITION } from "@/constants/motion";
 import { Button } from "@/components/ui/button";
-import type { MenuItem } from "@/types/menu.type";
+import type { MenuId, MenuItem } from "@/types/menu.type";
 
 export const Menu = ({ menu }: { menu: MenuItem[] }) => {
   const [selectedId, setSelectedId] = useAtom(selectedMenuAtom);
   const setPlayingNo = useSetAtom(trackIdAtom);
 
-  const handleSelect = (id: string) => {
+  const handleSelect = (id: MenuId) => {
     setSelectedId(selectedId === id ? null : id);
     setPlayingNo(null);
   };
