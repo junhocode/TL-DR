@@ -4,11 +4,10 @@ import { themeAtom } from "@/atoms/themeAtom";
 import { Header } from "@/components/Layout/Header/Header";
 import { Main } from "@/components/Layout/Main/Main";
 import { Footer } from "@/components/Layout/Footer/Footer";
-import { useAudio } from "@/hooks/useAudio"; 
+import { useAudio } from "@/hooks/useAudio";
 
 export const Layout = () => {
   const isDark = useAtomValue(themeAtom);
-  
   const { trackId, duration, handleTrackClick, audio } = useAudio();
 
   useEffect(() => {
@@ -20,16 +19,8 @@ export const Layout = () => {
   return (
     <div className="relative w-full flex flex-col bg-background text-foreground transition-colors min-h-screen">
       <Header />
-      
-      <main className="flex-1">
-        <Main onTrackClick={handleTrackClick} />
-      </main>
-
-      <Footer 
-        audio={audio}
-        isPlaying={!!trackId}
-        duration={duration}
-      />
+      <Main onTrackClick={handleTrackClick} />
+      <Footer audio={audio} isPlaying={!!trackId} duration={duration} />
     </div>
   );
 };
