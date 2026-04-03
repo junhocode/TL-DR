@@ -1,10 +1,9 @@
-// hooks/useAudioTicker.ts - rawX 대신 tickerX 사용
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useAnimationFrame, useTransform } from "motion/react";
 import { tickerX } from "@/atoms/tickerX";
 
 const BASE_SPEED = 0.8;
-const ACCEL_STEP = 0.04;
+const DECEL = 0.97;
 const FPS = 60;
 const PIXELS_PER_SECOND = BASE_SPEED * FPS;
 const FOOTER_HEIGHT = 48;
@@ -23,34 +22,49 @@ export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerPro
     return ((v % imageUnitWidth) - imageUnitWidth) % imageUnitWidth;
   });
 
-  const currentSpeed = useRef(0);
   const isDragging = useRef(false);
   const lastPointerX = useRef(0);
+  const offsetRef = useRef(0);
+  const prevAudioRef = useRef<HTMLAudioElement | null>(null);
+  const coastSpeed = useRef(0);
+  const prevTickerX = useRef(0);
+  const wasPlaying = useRef(false);
 
   useEffect(() => {
     const img = new Image();
     img.src = "/images/wrist_band.jpg";
     img.onload = () => {
       const aspectRatio = img.naturalWidth / img.naturalHeight;
-      const unitWidth = Math.ceil(FOOTER_HEIGHT * aspectRatio);
-      setImageUnitWidth(unitWidth);
-
-      if (audio) {
-        tickerX.set(-(audio.currentTime * PIXELS_PER_SECOND));
-      }
+      setImageUnitWidth(Math.ceil(FOOTER_HEIGHT * aspectRatio));
     };
-  }, [audio]);
+  }, []);
 
   useAnimationFrame(() => {
     if (imageUnitWidth === 0 || isDragging.current) return;
 
-    const targetSpeed = isPlaying ? BASE_SPEED : 0;
-    currentSpeed.current += (targetSpeed - currentSpeed.current) * ACCEL_STEP;
+    if (audio && audio !== prevAudioRef.current) {
+      offsetRef.current = tickerX.get() + audio.currentTime * PIXELS_PER_SECOND;
+      prevAudioRef.current = audio;
+    }
+
+    if (isPlaying && !wasPlaying.current && audio) {
+      offsetRef.current = tickerX.get() + audio.currentTime * PIXELS_PER_SECOND;
+    }
+    
+    if (!isPlaying && wasPlaying.current) {
+      coastSpeed.current = tickerX.get() - prevTickerX.current;
+    }
+
+    wasPlaying.current = isPlaying;
+    prevTickerX.current = tickerX.get();
 
     if (isPlaying && audio) {
-      tickerX.set(-(audio.currentTime * PIXELS_PER_SECOND));
+      tickerX.set(-(audio.currentTime * PIXELS_PER_SECOND) + offsetRef.current);
     } else {
-      tickerX.set(tickerX.get() - currentSpeed.current);
+      coastSpeed.current *= DECEL;
+      if (Math.abs(coastSpeed.current) > 0.01) {
+        tickerX.set(tickerX.get() + coastSpeed.current);
+      }
     }
   });
 
