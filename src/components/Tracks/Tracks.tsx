@@ -1,14 +1,18 @@
 import { motion } from "motion/react";
-import { useAtomValue } from "jotai";
+import { useAtom } from "jotai";
 import { trackIdAtom } from "@/atoms/playerAtom";
 import { SubView } from "@/components/SubView/SubView";
 import { Button } from "@/components/ui/button";
-import type { TrackMenuProps } from "@/types/track.type";
+import type { Track } from "@/types/track.type";
 
-export const Tracks = ({ tracks, onTrackClick }: TrackMenuProps) => {
-  const trackId = useAtomValue(trackIdAtom);
-
+export const Tracks = ({ tracks }: { tracks: Track[] }) => {
   // happy halloween은 육안으로 규격이 맞아보이지 않아 패딩을 추가한다
+
+  const [trackId, setTrackId] = useAtom(trackIdAtom);
+
+  const handleTrackClick = (id: string) => {
+    setTrackId(trackId === id ? null : id);
+  };
 
   return (
     <SubView as="ul" className="flex flex-col gap-2">
@@ -25,7 +29,7 @@ export const Tracks = ({ tracks, onTrackClick }: TrackMenuProps) => {
           >
             <Button
               variant="ghost"
-              onClick={() => onTrackClick(track.id, track.src)}
+              onClick={() => handleTrackClick(track.id)}
               className={`
                 flex w-full h-auto justify-start gap-16 text-base hover:underline
                 ${isPlaying ? "opacity-80" : "text-smart-opacity"}
