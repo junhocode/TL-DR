@@ -15,49 +15,52 @@ import { VISUALS } from "@/constants/visuals";
 import { MENU } from "@/constants/menu";
 import { ARCHIVE } from "@/constants/archive";
 
-export const Main = ({ onTrackClick }: { onTrackClick: (no: string, src: string) => void }) => {
+export const Main = () => {
   const selectedMenu = useAtomValue(selectedMenuAtom);
   const playingNo = useAtomValue(trackIdAtom);
   const isMobile = useIsMobile();
 
-  const menuContent: Record<string, React.ReactNode> = {
-    TLDR: <Tracks tracks={TRACKS} onTrackClick={onTrackClick} />,
-    externals: <LinkList items={EXTERNAL} />,
-    visuals: <LinkList items={VISUALS} />,
-    archive: <Archive archive={ARCHIVE} />,
+  const renderContent = () => {
+    switch (selectedMenu) {
+      case "TLDR": return <Tracks tracks={TRACKS} />;
+      case "externals": return <LinkList items={EXTERNAL} />;
+      case "visuals": return <LinkList items={VISUALS} />;
+      case "archive": return <Archive archive={ARCHIVE} />;
+      default: return null;
+    }
   };
 
   return (
-  <main className="relative w-full px-12 md:px-20 md:pt-8 pb-16 md:pb-20 min-h-[calc(100vh-80px)] overflow-y-auto scrollbar-gutter-stable">
-    <BGLogo />
+    <main className="relative w-full px-12 md:px-20 md:pt-8 pb-16 md:pb-20 min-h-[calc(100vh-80px)] overflow-y-auto scrollbar-gutter-stable">
+      <BGLogo />
 
-    {isMobile ? (
-      <div className="relative z-10 py-2">
-        <AnimatePresence mode="wait">
-          {playingNo ? (
-            <Lyrics key="lyrics" />
-          ) : selectedMenu ? (
-            <div key={selectedMenu}>{menuContent[selectedMenu]}</div>
-          ) : (
-            <Menu key="menu" menu={MENU} />
-          )}
-        </AnimatePresence>
-      </div>
-    ) : (
-      <div className="relative z-10 flex flex-row gap-40 items-start py-5">
-        <div className="shrink-0">
-          <Menu menu={MENU} />
+      {isMobile ? (
+        <div className="relative z-10 py-2">
+          <AnimatePresence mode="wait">
+            {playingNo ? (
+              <Lyrics key="lyrics" />
+            ) : selectedMenu ? (
+              <div key={selectedMenu}>{renderContent()}</div>
+            ) : (
+              <Menu key="menu" menu={MENU} />
+            )}
+          </AnimatePresence>
         </div>
+      ) : (
+        <div className="relative z-10 flex flex-row gap-40 items-start py-5">
+          <div className="shrink-0">
+            <Menu menu={MENU} />
+          </div>
 
-      <div className={`relative ${selectedMenu === "archive" ? "flex-1 min-w-0" : "w-full md:w-auto shrink-0"}`}>
-        <AnimatePresence mode="wait">
-          {selectedMenu && menuContent[selectedMenu]}
-        </AnimatePresence>
-      </div>
+          <div className={`relative ${selectedMenu === "archive" ? "flex-1 min-w-0" : "w-auto shrink-0"}`}>
+            <AnimatePresence mode="wait">
+              {selectedMenu && renderContent()}
+            </AnimatePresence>
+          </div>
 
-        <Lyrics />
-      </div>
-    )}
-  </main>
-);
+          <Lyrics />
+        </div>
+      )}
+    </main>
+  );
 };

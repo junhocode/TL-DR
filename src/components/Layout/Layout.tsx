@@ -1,26 +1,13 @@
-import { useEffect } from "react";
-import { useAtomValue } from "jotai";
-import { themeAtom } from "@/atoms/themeAtom";
 import { Header } from "@/components/Layout/Header/Header";
 import { Main } from "@/components/Layout/Main/Main";
 import { Footer } from "@/components/Layout/Footer/Footer";
-import { useAudio } from "@/hooks/useAudio";
 
 export const Layout = () => {
-  const isDark = useAtomValue(themeAtom);
-  const { trackId, duration, handleTrackClick, audio } = useAudio();
-
-  useEffect(() => {
-    const root = window.document.documentElement;
-    if (isDark) root.classList.add("dark");
-    else root.classList.remove("dark");
-  }, [isDark]);
-
   return (
     <div className="relative w-full flex flex-col bg-background text-foreground transition-colors min-h-screen">
       <Header />
-      <Main onTrackClick={handleTrackClick} />
-      <Footer audio={audio} isPlaying={!!trackId} duration={duration} />
+      <Main />
+      <Footer />
     </div>
   );
 };
