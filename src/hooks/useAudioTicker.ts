@@ -29,6 +29,11 @@ export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerPro
   const coastSpeed = useRef(0);
   const prevTickerX = useRef(0);
   const wasPlaying = useRef(false);
+  const audioLatest = useRef(audio);
+  const durationLatest = useRef(duration);
+
+  useEffect(() => { audioLatest.current = audio; }, [audio]);
+  useEffect(() => { durationLatest.current = duration; }, [duration]);
 
   useEffect(() => {
     const img = new Image();
@@ -51,7 +56,6 @@ export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerPro
       offsetRef.current = tickerX.get() + audio.currentTime * PIXELS_PER_SECOND;
     }
 
-    // 재생 → 정지 — 감속 초기 속도 저장
     if (!isPlaying && wasPlaying.current) {
       coastSpeed.current = tickerX.get() - prevTickerX.current;
     }
@@ -85,12 +89,12 @@ export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerPro
   const handlePointerUp = useCallback(() => {
     if (!isDragging.current) return;
     isDragging.current = false;
-    if (!audio || duration === 0) return;
+    if (!audioLatest.current || durationLatest.current === 0) return;
 
-    const totalMoved = Math.abs(tickerX.get());
-    const calculatedTime = (totalMoved / PIXELS_PER_SECOND) % duration;
-    audio.currentTime = calculatedTime;
-  }, [audio, duration]);
+    const raw = (offsetRef.current - tickerX.get()) / PIXELS_PER_SECOND;
+    const calculatedTime = ((raw % durationLatest.current) + durationLatest.current) % durationLatest.current;
+    audioLatest.current.currentTime = calculatedTime;
+  }, []);
 
   return {
     imageUnitWidth,
