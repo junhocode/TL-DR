@@ -8,11 +8,14 @@ export const useAudioPlayer = () => {
   const [trackId, setTrackId] = useAtom(trackIdAtom);
   const isMuted = useAtomValue(isMutedAtom);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
     if (!trackId) {
       audioRef.current?.pause();
+      audioRef.current = null;
+      setAudio(null);
       return;
     }
 
@@ -20,23 +23,24 @@ export const useAudioPlayer = () => {
     if (!track) return;
 
     audioRef.current?.pause();
-    const audio = new Audio(track.src);
-    audio.muted = isMuted;
-    audioRef.current = audio;
+    const newAudio = new Audio(track.src);
+    newAudio.muted = isMuted;
+    audioRef.current = newAudio;
+    setAudio(newAudio);
 
-    audio.onloadedmetadata = () => setDuration(audio.duration);
-    audio.onended = () => {
+    newAudio.onloadedmetadata = () => setDuration(newAudio.duration);
+    newAudio.onended = () => {
       const idx = TRACKS.findIndex((t) => t.id === trackId);
       const next = TRACKS[idx + 1];
       setTrackId(next ? next.id : null);
     };
 
-    audio.play();
+    newAudio.play();
   }, [trackId]);
 
   useEffect(() => {
     if (audioRef.current) audioRef.current.muted = isMuted;
   }, [isMuted]);
 
-  return { audio: audioRef.current, duration };
+  return { audio, duration };
 };
