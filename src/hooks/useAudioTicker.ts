@@ -50,7 +50,8 @@ export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerPro
     if (isPlaying && !wasPlaying.current && audio) {
       offsetRef.current = tickerX.get() + audio.currentTime * PIXELS_PER_SECOND;
     }
-    
+
+    // 재생 → 정지 — 감속 초기 속도 저장
     if (!isPlaying && wasPlaying.current) {
       coastSpeed.current = tickerX.get() - prevTickerX.current;
     }

@@ -1,14 +1,16 @@
-// Footer.tsx
 import { motion } from "motion/react";
+import { useAtomValue } from "jotai";
+import { trackIdAtom } from "@/atoms/playerAtom";
+import { useAudioPlayer } from "@/hooks/useAudioPlayer";
 import { useAudioTicker } from "@/hooks/useAudioTicker";
 
-interface FooterProps {
-  audio: HTMLAudioElement | null;
-  isPlaying: boolean;
-  duration: number;
-}
+const TICKER_SPREAD = "300vw";
+const TICKER_OFFSET = "-100vw";
 
-export const Footer = ({ audio, isPlaying, duration }: FooterProps) => {
+export const Footer = () => {
+  const isPlaying = !!useAtomValue(trackIdAtom);
+  const { audio, duration } = useAudioPlayer();
+
   const {
     imageUnitWidth,
     visualX,
@@ -32,8 +34,8 @@ export const Footer = ({ audio, isPlaying, duration }: FooterProps) => {
         >
           <div
             style={{
-              width: "1000vw",
-              marginLeft: "-400vw",
+              width: TICKER_SPREAD,
+              marginLeft: TICKER_OFFSET,
               backgroundImage: "url('/images/wrist_band.jpg')",
               backgroundSize: `${imageUnitWidth}px 100%`,
               backgroundRepeat: "repeat-x",

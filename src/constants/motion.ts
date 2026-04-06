@@ -3,3 +3,5 @@ export const PAGE_TRANSITION = {
   animate: { opacity: 1, x: 0 },
   exit: { opacity: 0, x: -10 },
 };
+
+export const STAGGER_DELAY = 0.05;

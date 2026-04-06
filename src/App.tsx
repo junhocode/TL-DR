@@ -1,11 +1,7 @@
 import { Layout } from "@/components/Layout/Layout";
+import { useTheme } from "@/hooks/useTheme";
 
-function App() {
-  return (
-    <>
-      <Layout />
-    </>
-  );
-}
-
-export default App;
+export const App = () => {
+  useTheme();
+  return <Layout />;
+};
