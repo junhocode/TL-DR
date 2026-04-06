@@ -9,7 +9,7 @@ export const Lyrics = () => {
   const playingNo = useAtomValue(trackIdAtom);
 
   const currentTrack = playingNo
-    ? Object.values(TRACKS).flat().find((t) => t.id === playingNo)
+    ? TRACKS.find((t) => t.id === playingNo)
     : null;
 
   const lyricsText = playingNo ? LYRICS[playingNo] : null;
