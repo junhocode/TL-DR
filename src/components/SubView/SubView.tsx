@@ -5,7 +5,7 @@ import { PAGE_TRANSITION } from "@/constants/motion";
 
 // 진입 / 퇴장 애니메이션과 백 버튼을 제공하는 래퍼
 
-type MotionTag = "div" | "ul" | "section";
+type MotionTag = "div" | "ul";
 
 export const SubView = ({ children, className = "", as = "div" }: {
   children: ReactNode;
