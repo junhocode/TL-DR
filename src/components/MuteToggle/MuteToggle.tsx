@@ -20,4 +20,4 @@ export const MuteToggle = () => {
       {isMuted ? <VolumeOff /> : <Volume2 />}
     </Button>
   );
-}
+};
