@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { AnimatePresence } from "motion/react";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
 import { trackIdAtom } from "@/atoms/playerAtom";
-import { useIsMobile } from "@/hooks/useIsMobile";
+import { useIsWideScreen } from "@/hooks/useIsWideScreen";
 import { Menu } from "@/components/Menu/Menu";
 import { Tracks } from "@/components/Tracks/Tracks";
 import { Lyrics } from "@/components/Lyrics/Lyrics";
@@ -18,7 +18,7 @@ import { ARCHIVE } from "@/constants/archive";
 export const Main = () => {
   const selectedMenu = useAtomValue(selectedMenuAtom);
   const playingNo = useAtomValue(trackIdAtom);
-  const isMobile = useIsMobile();
+  const isWideWindow = useIsWideScreen();
 
   const renderContent = () => {
     switch (selectedMenu) {
@@ -34,19 +34,7 @@ export const Main = () => {
     <main className="relative w-full px-12 md:px-20 md:pt-8 pb-16 md:pb-20 min-h-[calc(100vh-80px)] overflow-y-auto">
       <BGLogo />
 
-      {isMobile ? (
-        <div className="relative z-10 py-2">
-          <AnimatePresence mode="wait">
-            {playingNo ? (
-              <Lyrics key="lyrics" />
-            ) : selectedMenu ? (
-              renderContent()
-            ) : (
-              <Menu key="menu" menu={MENU} />
-            )}
-          </AnimatePresence>
-        </div>
-      ) : (
+      {isWideWindow ? (
         <div className="relative z-10 flex flex-row gap-40 items-start py-5">
           <div className="shrink-0">
             <Menu menu={MENU} />
@@ -57,6 +45,18 @@ export const Main = () => {
           </AnimatePresence>
 
           <Lyrics />
+        </div>
+      ) : (
+        <div className="relative z-10 py-2">
+          <AnimatePresence mode="wait">
+            {playingNo ? (
+              <Lyrics key="lyrics" />
+            ) : selectedMenu ? (
+              renderContent()
+            ) : (
+              <Menu key="menu" menu={MENU} />
+            )}
+          </AnimatePresence>
         </div>
       )}
     </main>
