@@ -3,6 +3,7 @@ import type { PointerEvent as ReactPointerEvent } from "react";
 import { useAnimationFrame, useTransform } from "motion/react";
 import { tickerX } from "@/atoms/tickerX";
 import { FOOTER_HEIGHT } from "@/constants/layout";
+import { audio } from "@/lib/audio";
 import wristBand from "@/assets/images/wrist_band.jpg";
 
 const BASE_SPEED = 0.8;
@@ -10,13 +11,7 @@ const DECEL = 0.97;
 const FPS = 60;
 const PIXELS_PER_SECOND = BASE_SPEED * FPS;
 
-interface UseAudioTickerProps {
-  audio: HTMLAudioElement | null;
-  isPlaying: boolean;
-  duration: number;
-}
-
-export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerProps) => {
+export const useAudioTicker = (isPlaying: boolean) => {
   const [imageUnitWidth, setImageUnitWidth] = useState(0);
 
   const visualX = useTransform(tickerX, (v) => {
@@ -27,15 +22,10 @@ export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerPro
   const isDragging = useRef(false);
   const lastPointerX = useRef(0);
   const offsetRef = useRef(0);
-  const prevAudioRef = useRef<HTMLAudioElement | null>(null);
+  const prevSrcRef = useRef("");
   const coastSpeed = useRef(0);
   const prevTickerX = useRef(0);
   const wasPlaying = useRef(false);
-  const audioLatest = useRef(audio);
-  const durationLatest = useRef(duration);
-
-  useEffect(() => { audioLatest.current = audio; }, [audio]);
-  useEffect(() => { durationLatest.current = duration; }, [duration]);
 
   useEffect(() => {
     const img = new Image();
@@ -49,12 +39,12 @@ export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerPro
   useAnimationFrame(() => {
     if (imageUnitWidth === 0 || isDragging.current) return;
 
-    if (audio && audio !== prevAudioRef.current) {
+    if (audio.src !== prevSrcRef.current) {
       offsetRef.current = tickerX.get() + audio.currentTime * PIXELS_PER_SECOND;
-      prevAudioRef.current = audio;
+      prevSrcRef.current = audio.src;
     }
 
-    if (isPlaying && !wasPlaying.current && audio) {
+    if (isPlaying && !wasPlaying.current) {
       offsetRef.current = tickerX.get() + audio.currentTime * PIXELS_PER_SECOND;
     }
 
@@ -65,7 +55,7 @@ export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerPro
     wasPlaying.current = isPlaying;
     prevTickerX.current = tickerX.get();
 
-    if (isPlaying && audio) {
+    if (isPlaying) {
       tickerX.set(-(audio.currentTime * PIXELS_PER_SECOND) + offsetRef.current);
     } else {
       coastSpeed.current *= DECEL;
@@ -91,11 +81,12 @@ export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerPro
   const handlePointerUp = useCallback(() => {
     if (!isDragging.current) return;
     isDragging.current = false;
-    if (!audioLatest.current || durationLatest.current === 0) return;
+
+    const { duration } = audio;
+    if (!Number.isFinite(duration) || duration === 0) return;
 
     const raw = (offsetRef.current - tickerX.get()) / PIXELS_PER_SECOND;
-    const calculatedTime = ((raw % durationLatest.current) + durationLatest.current) % durationLatest.current;
-    audioLatest.current.currentTime = calculatedTime;
+    audio.currentTime = ((raw % duration) + duration) % duration;
   }, []);
 
   return {
