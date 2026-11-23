@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { FOOTER_HEIGHT } from "@/constants/layout";
 
-export const useImageUnitWidth = (src: string) => {
+export const useImageUnitWidth = (src: string, height: number) => {
   const [imageUnitWidth, setImageUnitWidth] = useState(0);
 
   useEffect(() => {
@@ -9,9 +8,9 @@ export const useImageUnitWidth = (src: string) => {
     img.src = src;
     img.onload = () => {
       const aspectRatio = img.naturalWidth / img.naturalHeight;
-      setImageUnitWidth(Math.ceil(FOOTER_HEIGHT * aspectRatio));
+      setImageUnitWidth(Math.ceil(height * aspectRatio));
     };
-  }, [src]);
+  }, [src, height]);
 
   return imageUnitWidth;
 };

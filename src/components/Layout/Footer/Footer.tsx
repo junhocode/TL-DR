@@ -11,7 +11,7 @@ const TICKER_OFFSET = "-100vw";
 
 export const Footer = () => {
   const isPlaying = !!useAtomValue(currentTrackIdAtom);
-  const imageUnitWidth = useImageUnitWidth(wristBand);
+  const imageUnitWidth = useImageUnitWidth(wristBand, FOOTER_HEIGHT);
 
   const {
     visualX,
