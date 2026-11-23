@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
 import { useAnimationFrame, useTransform } from "motion/react";
 import { tickerX } from "@/atoms/tickerX";
+import wristBand from "@/assets/images/wrist_band.jpg";
 
 const BASE_SPEED = 0.8;
 const DECEL = 0.97;
@@ -38,7 +39,7 @@ export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerPro
 
   useEffect(() => {
     const img = new Image();
-    img.src = "/images/wrist_band.jpg";
+    img.src = wristBand;
     img.onload = () => {
       const aspectRatio = img.naturalWidth / img.naturalHeight;
       setImageUnitWidth(Math.ceil(FOOTER_HEIGHT * aspectRatio));

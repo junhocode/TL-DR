@@ -3,6 +3,7 @@ import { useAtomValue } from "jotai";
 import { trackIdAtom } from "@/atoms/playerAtom";
 import { useAudioPlayer } from "@/hooks/useAudioPlayer";
 import { useAudioTicker } from "@/hooks/useAudioTicker";
+import wristBand from "@/assets/images/wrist_band.jpg";
 
 const TICKER_SPREAD = "300vw";
 const TICKER_OFFSET = "-100vw";
@@ -36,7 +37,7 @@ export const Footer = () => {
             style={{
               width: TICKER_SPREAD,
               marginLeft: TICKER_OFFSET,
-              backgroundImage: "url('/images/wrist_band.jpg')",
+              backgroundImage: `url(${wristBand})`,
               backgroundSize: `${imageUnitWidth}px 100%`,
               backgroundRepeat: "repeat-x",
             }}
