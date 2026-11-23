@@ -86,7 +86,7 @@ export const useAudioTicker = (isPlaying: boolean) => {
     if (!Number.isFinite(duration) || duration === 0) return;
 
     const raw = (offsetRef.current - tickerX.get()) / PIXELS_PER_SECOND;
-    audio.currentTime = ((raw % duration) + duration) % duration;
+    audio.currentTime = Math.min(Math.max(raw, 0), duration);
   }, []);
 
   return {
