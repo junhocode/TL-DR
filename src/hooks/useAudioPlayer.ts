@@ -25,7 +25,10 @@ export const useAudioPlayer = () => {
       const next = TRACKS[idx + 1];
       setCurrentTrackId(next ? next.id : null);
     };
-    audio.play();
+    audio.onerror = () => setCurrentTrackId(null);
+    audio.play().catch((e) => {
+      if (e.name !== "AbortError") setCurrentTrackId(null);
+    });
   }, [currentTrackId, setCurrentTrackId]);
 
   useEffect(() => {
