@@ -1,3 +1,3 @@
 import { atomWithStorage } from "jotai/utils";
 
-export const isMutedAtom = atomWithStorage("muted", false);
+export const isMutedAtom = atomWithStorage("muted", false, undefined, { getOnInit: true });
