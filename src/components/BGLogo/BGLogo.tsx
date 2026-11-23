@@ -16,7 +16,7 @@ export const BGLogo = () => {
         src={logoSrc}
         alt=""
         className="w-[150px] md:w-[200px] lg:w-[250px] opacity-15"
-        style={{ rotate }}
+        style={{ rotate, willChange: "transform" }}
       />
     </div>
   );

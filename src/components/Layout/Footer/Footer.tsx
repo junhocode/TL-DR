@@ -25,7 +25,7 @@ export const Footer = () => {
     >
       {imageUnitWidth > 0 && (
         <motion.div
-          style={{ x: visualX }}
+          style={{ x: visualX, willChange: "transform" }}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
@@ -39,7 +39,6 @@ export const Footer = () => {
               backgroundImage: "url('/images/wrist_band.jpg')",
               backgroundSize: `${imageUnitWidth}px 100%`,
               backgroundRepeat: "repeat-x",
-              willChange: "transform",
             }}
             className="h-full"
           />
