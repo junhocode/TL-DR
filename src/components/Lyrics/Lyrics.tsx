@@ -24,7 +24,7 @@ export const Lyrics = () => {
             </h2>
           </div>
 
-          <div className="leading-[2.2] whitespace-pre-wrap max-h-[60vh] overflow-y-auto scrollbar-hide tracking-tight opacity-80">
+          <div className="leading-[2.2] whitespace-pre-wrap max-h-[60vh] overflow-y-auto tracking-tight opacity-80">
             {lyricsText || <span>Lyrics not found.</span>}
           </div>
         </SubView>

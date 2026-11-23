@@ -31,7 +31,7 @@ export const Main = () => {
   };
 
   return (
-    <main className="relative w-full px-12 md:px-20 md:pt-8 pb-16 md:pb-20 min-h-[calc(100vh-80px)] overflow-y-auto scrollbar-gutter-stable">
+    <main className="relative w-full px-12 md:px-20 md:pt-8 pb-16 md:pb-20 min-h-[calc(100vh-80px)] overflow-y-auto">
       <BGLogo />
 
       {isMobile ? (
