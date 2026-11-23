@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { useAtomValue } from "jotai";
 import { currentTrackIdAtom } from "@/atoms/playerAtom";
 import { useAudioTicker } from "@/hooks/useAudioTicker";
+import { useImageUnitWidth } from "@/hooks/useImageUnitWidth";
 import { FOOTER_HEIGHT } from "@/constants/layout";
 import wristBand from "@/assets/images/wrist_band.jpg";
 
@@ -10,14 +11,14 @@ const TICKER_OFFSET = "-100vw";
 
 export const Footer = () => {
   const isPlaying = !!useAtomValue(currentTrackIdAtom);
+  const imageUnitWidth = useImageUnitWidth(wristBand);
 
   const {
-    imageUnitWidth,
     visualX,
     handlePointerDown,
     handlePointerMove,
     handlePointerUp,
-  } = useAudioTicker(isPlaying);
+  } = useAudioTicker(isPlaying, imageUnitWidth);
 
   return (
     <footer
