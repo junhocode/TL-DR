@@ -3,9 +3,18 @@ import { useAudioPlayer } from "@/hooks/useAudioPlayer";
 import { useNavigationHistory } from "@/hooks/useNavigationHistory";
 import { useTheme } from "@/hooks/useTheme";
 
-export const App = () => {
+const AppEffects = () => {
   useTheme();
   useNavigationHistory();
   useAudioPlayer();
-  return <Layout />;
+  return null;
+};
+
+export const App = () => {
+  return (
+    <>
+      <AppEffects />
+      <Layout />
+    </>
+  );
 };
