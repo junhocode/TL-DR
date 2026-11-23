@@ -8,23 +8,27 @@ export const useTickerDrag = (
   offsetRef: RefObject<number>,
   isDraggingRef: RefObject<boolean>,
 ) => {
+  const activePointerId = useRef<number | null>(null);
   const lastPointerX = useRef(0);
 
   const handlePointerDown = useCallback((e: ReactPointerEvent) => {
+    if (activePointerId.current !== null) return;
+    activePointerId.current = e.pointerId;
     isDraggingRef.current = true;
     lastPointerX.current = e.clientX;
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    e.currentTarget.setPointerCapture(e.pointerId);
   }, [isDraggingRef]);
 
   const handlePointerMove = useCallback((e: ReactPointerEvent) => {
-    if (!isDraggingRef.current) return;
+    if (e.pointerId !== activePointerId.current) return;
     const delta = e.clientX - lastPointerX.current;
     lastPointerX.current = e.clientX;
     tickerX.set(tickerX.get() + delta);
-  }, [isDraggingRef]);
+  }, []);
 
-  const handlePointerUp = useCallback(() => {
-    if (!isDraggingRef.current) return;
+  const handlePointerUp = useCallback((e: ReactPointerEvent) => {
+    if (e.pointerId !== activePointerId.current) return;
+    activePointerId.current = null;
     isDraggingRef.current = false;
 
     const { duration } = audio;
