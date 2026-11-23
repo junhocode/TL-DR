@@ -31,6 +31,7 @@ export const Footer = () => {
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
           onPointerLeave={handlePointerUp}
           className="absolute top-0 flex h-full cursor-grab active:cursor-grabbing touch-none"
         >
