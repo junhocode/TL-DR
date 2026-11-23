@@ -1,4 +1,4 @@
-import { useAtom } from "jotai/react"
+import { useAtom } from "jotai";
 import { themeAtom } from "@/atoms/themeAtom";
 import { Button } from "@/components/ui/button";
 

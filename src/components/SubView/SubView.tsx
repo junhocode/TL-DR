@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { motion } from "motion/react";
 import { BackButton } from "@/components/BackButton/BackButton";
 import { PAGE_TRANSITION } from "@/constants/motion";
@@ -7,7 +8,7 @@ import { PAGE_TRANSITION } from "@/constants/motion";
 type MotionTag = "div" | "ul" | "section";
 
 export const SubView = ({ children, className = "", as = "div" }: {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   as?: MotionTag;
 }) => {

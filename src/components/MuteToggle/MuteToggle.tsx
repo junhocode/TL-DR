@@ -1,5 +1,5 @@
-import { useAtom } from "jotai/react"
-import { Volume2, VolumeOff } from "lucide-react"
+import { useAtom } from "jotai";
+import { Volume2, VolumeOff } from "lucide-react";
 import { isMutedAtom } from "@/atoms/muteAtom";
 import { Button } from "@/components/ui/button";
 

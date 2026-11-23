@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import type { PointerEvent as ReactPointerEvent } from "react";
 import { useAnimationFrame, useTransform } from "motion/react";
 import { tickerX } from "@/atoms/tickerX";
 
@@ -73,13 +74,13 @@ export const useAudioTicker = ({ audio, isPlaying, duration }: UseAudioTickerPro
     }
   });
 
-  const handlePointerDown = useCallback((e: React.PointerEvent) => {
+  const handlePointerDown = useCallback((e: ReactPointerEvent) => {
     isDragging.current = true;
     lastPointerX.current = e.clientX;
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
   }, []);
 
-  const handlePointerMove = useCallback((e: React.PointerEvent) => {
+  const handlePointerMove = useCallback((e: ReactPointerEvent) => {
     if (!isDragging.current) return;
     const delta = e.clientX - lastPointerX.current;
     lastPointerX.current = e.clientX;
