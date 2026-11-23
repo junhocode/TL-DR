@@ -1,26 +1,26 @@
 import { AnimatePresence } from "motion/react";
 import { useAtomValue } from "jotai";
-import { trackIdAtom } from "@/atoms/playerAtom";
+import { currentTrackIdAtom } from "@/atoms/playerAtom";
 import { SubView } from "@/components/SubView/SubView";
 import { TRACKS } from "@/constants/tracks";
 import { LYRICS } from "@/constants/lyrics";
 
 export const Lyrics = () => {
-  const playingNo = useAtomValue(trackIdAtom);
+  const currentTrackId = useAtomValue(currentTrackIdAtom);
 
-  const currentTrack = playingNo
-    ? TRACKS.find((t) => t.id === playingNo)
+  const currentTrack = currentTrackId
+    ? TRACKS.find((t) => t.id === currentTrackId)
     : null;
 
-  const lyricsText = playingNo ? LYRICS[playingNo] : null;
+  const lyricsText = currentTrackId ? LYRICS[currentTrackId] : null;
 
   return (
     <AnimatePresence mode="wait">
-      {playingNo && currentTrack && (
-        <SubView key={`lyrics-${playingNo}`} className="w-full md:w-auto flex flex-col gap-3 z-10">
+      {currentTrackId && currentTrack && (
+        <SubView key={`lyrics-${currentTrackId}`} className="w-full md:w-auto flex flex-col gap-3 z-10">
           <div className="flex flex-col border-b border-foreground/10 pb-4">
             <h2 className="text-xl opacity-80 tracking-widest">
-              {playingNo}. {currentTrack.title}
+              {currentTrackId}. {currentTrack.title}
             </h2>
           </div>
 

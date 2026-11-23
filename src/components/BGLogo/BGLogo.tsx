@@ -1,11 +1,11 @@
 import { motion } from "motion/react";
 import { useAtomValue } from "jotai";
-import { trackIdAtom } from "@/atoms/playerAtom";
+import { currentTrackIdAtom } from "@/atoms/playerAtom";
 import { useLogoRotation } from "@/hooks/useLogoRotation";
 import logo from "@/assets/images/r_ryuji.webp";
 
 export const BGLogo = () => {
-  const isPlaying = !!useAtomValue(trackIdAtom);
+  const isPlaying = !!useAtomValue(currentTrackIdAtom);
   const rotate = useLogoRotation(isPlaying);
 
   return (

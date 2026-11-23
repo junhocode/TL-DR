@@ -1,3 +1,3 @@
 import { atom } from "jotai";
 
-export const trackIdAtom = atom<string | null>(null);
+export const currentTrackIdAtom = atom<string | null>(null);

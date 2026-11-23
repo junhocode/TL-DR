@@ -1,15 +1,15 @@
 import { useAtom, useSetAtom } from "jotai";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
-import { trackIdAtom } from "@/atoms/playerAtom";
+import { currentTrackIdAtom } from "@/atoms/playerAtom";
 import { Button } from "@/components/ui/button";
 
 export const BackButton = () => {
-  const [playingNo, setPlayingNo] = useAtom(trackIdAtom);
+  const [currentTrackId, setCurrentTrackId] = useAtom(currentTrackIdAtom);
   const setSelectedMenu = useSetAtom(selectedMenuAtom);
 
   const handleBack = () => {
-    if (playingNo) {
-      setPlayingNo(null);
+    if (currentTrackId) {
+      setCurrentTrackId(null);
     } else {
       setSelectedMenu(null);
     }

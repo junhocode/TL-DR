@@ -1,7 +1,7 @@
 import { useAtomValue } from "jotai";
 import { AnimatePresence } from "motion/react";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
-import { trackIdAtom } from "@/atoms/playerAtom";
+import { currentTrackIdAtom } from "@/atoms/playerAtom";
 import { useIsWideScreen } from "@/hooks/useIsWideScreen";
 import { Menu } from "@/components/Menu/Menu";
 import { Tracks } from "@/components/Tracks/Tracks";
@@ -17,7 +17,7 @@ import { ARCHIVE } from "@/constants/archive";
 
 export const Main = () => {
   const selectedMenu = useAtomValue(selectedMenuAtom);
-  const playingNo = useAtomValue(trackIdAtom);
+  const currentTrackId = useAtomValue(currentTrackIdAtom);
   const isWideWindow = useIsWideScreen();
 
   const renderContent = () => {
@@ -49,7 +49,7 @@ export const Main = () => {
       ) : (
         <div className="relative z-10 py-2">
           <AnimatePresence mode="wait">
-            {playingNo ? (
+            {currentTrackId ? (
               <Lyrics key="lyrics" />
             ) : selectedMenu ? (
               renderContent()

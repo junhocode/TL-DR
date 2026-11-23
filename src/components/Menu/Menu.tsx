@@ -1,18 +1,18 @@
 import { useAtom, useSetAtom } from "jotai";
 import { motion } from "motion/react";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
-import { trackIdAtom } from "@/atoms/playerAtom";
+import { currentTrackIdAtom } from "@/atoms/playerAtom";
 import { PAGE_TRANSITION } from "@/constants/motion";
 import { Button } from "@/components/ui/button";
 import type { MenuId, MenuItem } from "@/types/menu.type";
 
 export const Menu = ({ menu }: { menu: MenuItem[] }) => {
   const [selectedId, setSelectedId] = useAtom(selectedMenuAtom);
-  const setPlayingNo = useSetAtom(trackIdAtom);
+  const setCurrentTrackId = useSetAtom(currentTrackIdAtom);
 
   const handleSelect = (id: MenuId) => {
     setSelectedId(selectedId === id ? null : id);
-    setPlayingNo(null);
+    setCurrentTrackId(null);
   };
 
   return (
