@@ -22,10 +22,10 @@ export const Main = () => {
 
   const renderContent = () => {
     switch (selectedMenu) {
-      case "TLDR": return <Tracks tracks={TRACKS} />;
-      case "externals": return <LinkList items={EXTERNAL} />;
-      case "visuals": return <LinkList items={VISUALS} />;
-      case "archive": return <Archive archive={ARCHIVE} />;
+      case "TLDR": return <Tracks key="TLDR" tracks={TRACKS} />;
+      case "externals": return <LinkList key="externals" items={EXTERNAL} />;
+      case "visuals": return <LinkList key="visuals" items={VISUALS} />;
+      case "archive": return <Archive key="archive" archive={ARCHIVE} />;
       default: return null;
     }
   };
@@ -40,7 +40,7 @@ export const Main = () => {
             {playingNo ? (
               <Lyrics key="lyrics" />
             ) : selectedMenu ? (
-              <div key={selectedMenu}>{renderContent()}</div>
+              renderContent()
             ) : (
               <Menu key="menu" menu={MENU} />
             )}
@@ -52,11 +52,9 @@ export const Main = () => {
             <Menu menu={MENU} />
           </div>
 
-          <div className={`relative ${selectedMenu === "archive" ? "flex-1 min-w-0" : "w-auto shrink-0"}`}>
-            <AnimatePresence mode="wait">
-              {selectedMenu && renderContent()}
-            </AnimatePresence>
-          </div>
+          <AnimatePresence mode="wait">
+            {selectedMenu && renderContent()}
+          </AnimatePresence>
 
           <Lyrics />
         </div>

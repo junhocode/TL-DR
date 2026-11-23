@@ -8,7 +8,7 @@ import type { LinkListItem } from "@/types/linkList.type";
 
 export const LinkList = ({ items }: { items: LinkListItem[] }) => {
   return (
-    <SubView as="ul" className="flex flex-col gap-2">
+    <SubView as="ul" className="flex flex-col gap-2 shrink-0">
       {items.map((item, index) => (
         <motion.li
           key={item.id}

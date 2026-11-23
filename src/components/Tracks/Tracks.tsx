@@ -15,7 +15,7 @@ export const Tracks = ({ tracks }: { tracks: Track[] }) => {
   };
 
   return (
-    <SubView as="ul" className="flex flex-col gap-2">
+    <SubView as="ul" className="flex flex-col gap-2 shrink-0">
       {tracks.map((track, index) => {
         const isPlaying = trackId === track.id;
 
