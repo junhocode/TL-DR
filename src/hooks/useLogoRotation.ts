@@ -20,7 +20,8 @@ export const useLogoRotation = (isPlaying: boolean) => {
       const mod = (((current - INITIAL_ANGLE) % 360) + 360) % 360;
       const near = mod > 180 ? mod - 360 : mod;
       rotate.set(INITIAL_ANGLE + near);
-      animate(rotate, INITIAL_ANGLE, { duration: 0.8 });
+      const controls = animate(rotate, INITIAL_ANGLE, { duration: 0.8 });
+      return () => controls.stop();
     }
   }, [isPlaying, rotate]);
 
