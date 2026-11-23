@@ -9,7 +9,7 @@ export const BGLogo = () => {
   const rotate = useLogoRotation(isPlaying);
 
   return (
-    <div className="fixed right-10 bottom-20 md:right-24 md:bottom-28">
+    <div className="fixed right-10 bottom-20 md:right-24 md:bottom-28 pointer-events-none">
       <motion.img
         src={logo}
         alt=""
