@@ -9,7 +9,7 @@ export const Archive = () => {
           <div key={img.id}>
             <img
               src={img.src}
-              alt={img.id}
+              alt={`Archive ${img.id}`}
               width={img.width}
               height={img.height}
               loading="lazy"
