@@ -1,36 +1,45 @@
 import { useEffect, useRef } from "react";
-import { useAtom } from "jotai";
+import { useAtomValue, useStore } from "jotai";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
 import { currentTrackIdAtom } from "@/atoms/playerAtom";
 
+const GUARD = { guard: true };
+
 export const useNavigationHistory = () => {
-  const [selectedMenu, setSelectedMenu] = useAtom(selectedMenuAtom);
-  const [currentTrackId, setCurrentTrackId] = useAtom(currentTrackIdAtom);
-  const isPopState = useRef(false);
+  const store = useStore();
+  const selectedMenu = useAtomValue(selectedMenuAtom);
+  const currentTrackId = useAtomValue(currentTrackIdAtom);
+  const isHome = !selectedMenu && !currentTrackId;
+  const hasGuard = useRef(window.history.state?.guard === true);
 
   useEffect(() => {
-    if (isPopState.current) {
-      isPopState.current = false;
-      return;
+    if (!isHome && !hasGuard.current) {
+      window.history.pushState(GUARD, "");
+      hasGuard.current = true;
+    } else if (isHome && hasGuard.current) {
+      hasGuard.current = false;
+      window.history.back();
     }
-
-    if (selectedMenu || currentTrackId) {
-      window.history.pushState({ menu: selectedMenu, track: currentTrackId }, "");
-    }
-  }, [selectedMenu, currentTrackId]);
+  }, [isHome]);
 
   useEffect(() => {
-    const handlePopState = () => {
-      isPopState.current = true;
+    const handlePopState = (e: PopStateEvent) => {
+      hasGuard.current = e.state?.guard === true;
 
-      if (currentTrackId) {
-        setCurrentTrackId(null);
-      } else if (selectedMenu) {
-        setSelectedMenu(null);
+      if (store.get(currentTrackIdAtom)) {
+        store.set(currentTrackIdAtom, null);
+      } else if (store.get(selectedMenuAtom)) {
+        store.set(selectedMenuAtom, null);
+      }
+
+      const isStillInside = store.get(currentTrackIdAtom) || store.get(selectedMenuAtom);
+      if (isStillInside && !hasGuard.current) {
+        window.history.pushState(GUARD, "");
+        hasGuard.current = true;
       }
     };
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, [selectedMenu, currentTrackId, setSelectedMenu, setCurrentTrackId]);
+  }, [store]);
 };
