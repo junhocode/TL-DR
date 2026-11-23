@@ -3,6 +3,7 @@ import { useAtomValue } from "jotai";
 import { trackIdAtom } from "@/atoms/playerAtom";
 import { useAudioPlayer } from "@/hooks/useAudioPlayer";
 import { useAudioTicker } from "@/hooks/useAudioTicker";
+import { FOOTER_HEIGHT } from "@/constants/layout";
 import wristBand from "@/assets/images/wrist_band.jpg";
 
 const TICKER_SPREAD = "300vw";
@@ -22,7 +23,8 @@ export const Footer = () => {
 
   return (
     <footer
-      className={`fixed bottom-0 left-0 w-full h-12 overflow-hidden z-50 bg-black ${isPlaying ? "pointer-events-auto" : "pointer-events-none"}`}
+      style={{ height: FOOTER_HEIGHT }}
+      className={`fixed bottom-0 left-0 w-full overflow-hidden z-50 bg-black ${isPlaying ? "pointer-events-auto" : "pointer-events-none"}`}
     >
       {imageUnitWidth > 0 && (
         <motion.div

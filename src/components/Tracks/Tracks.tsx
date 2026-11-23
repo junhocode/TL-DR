@@ -3,6 +3,7 @@ import { useAtom } from "jotai";
 import { trackIdAtom } from "@/atoms/playerAtom";
 import { SubView } from "@/components/SubView/SubView";
 import { Button } from "@/components/ui/button";
+import { STAGGER_DELAY } from "@/constants/motion";
 import type { Track } from "@/types/track.type";
 
 export const Tracks = ({ tracks }: { tracks: Track[] }) => {
@@ -24,7 +25,7 @@ export const Tracks = ({ tracks }: { tracks: Track[] }) => {
             key={track.id}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: index * 0.05 }}
+            transition={{ delay: index * STAGGER_DELAY }}
             className="group"
           >
             <Button

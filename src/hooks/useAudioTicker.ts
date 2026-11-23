@@ -2,13 +2,13 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import type { PointerEvent as ReactPointerEvent } from "react";
 import { useAnimationFrame, useTransform } from "motion/react";
 import { tickerX } from "@/atoms/tickerX";
+import { FOOTER_HEIGHT } from "@/constants/layout";
 import wristBand from "@/assets/images/wrist_band.jpg";
 
 const BASE_SPEED = 0.8;
 const DECEL = 0.97;
 const FPS = 60;
 const PIXELS_PER_SECOND = BASE_SPEED * FPS;
-const FOOTER_HEIGHT = 48;
 
 interface UseAudioTickerProps {
   audio: HTMLAudioElement | null;
