@@ -1,11 +1,11 @@
 import { SubView } from "@/components/SubView/SubView";
-import type { ArchiveItem } from "@/types/archive.type";
+import { ARCHIVE } from "@/constants/archive";
 
-export const Archive = ({ archive }: { archive: ArchiveItem[] }) => {
+export const Archive = () => {
   return (
     <SubView className="flex-1 min-w-0">
       <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-8">
-        {archive.map((img) => (
+        {ARCHIVE.map((img) => (
           <div key={img.id}>
             <img
               src={img.src}

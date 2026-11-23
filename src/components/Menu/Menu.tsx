@@ -3,10 +3,11 @@ import { motion } from "motion/react";
 import { selectedMenuAtom } from "@/atoms/menuAtom";
 import { currentTrackIdAtom } from "@/atoms/playerAtom";
 import { PAGE_TRANSITION } from "@/constants/motion";
+import { MENU } from "@/constants/menu";
 import { Button } from "@/components/ui/button";
-import type { MenuId, MenuItem } from "@/types/menu.type";
+import type { MenuId } from "@/types/menu.type";
 
-export const Menu = ({ menu }: { menu: MenuItem[] }) => {
+export const Menu = () => {
   const [selectedId, setSelectedId] = useAtom(selectedMenuAtom);
   const setCurrentTrackId = useSetAtom(currentTrackIdAtom);
 
@@ -17,7 +18,7 @@ export const Menu = ({ menu }: { menu: MenuItem[] }) => {
 
   return (
     <motion.div {...PAGE_TRANSITION} className="flex flex-col gap-4">
-      {menu.map((item) => {
+      {MENU.map((item) => {
         const isActive = selectedId === item.id;
 
         return (

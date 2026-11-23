@@ -4,9 +4,9 @@ import { currentTrackIdAtom } from "@/atoms/playerAtom";
 import { SubView } from "@/components/SubView/SubView";
 import { Button } from "@/components/ui/button";
 import { STAGGER_DELAY } from "@/constants/motion";
-import type { Track } from "@/types/track.type";
+import { TRACKS } from "@/constants/tracks";
 
-export const Tracks = ({ tracks }: { tracks: Track[] }) => {
+export const Tracks = () => {
   // happy halloween은 육안으로 규격이 맞아보이지 않아 패딩을 추가한다
 
   const [currentTrackId, setCurrentTrackId] = useAtom(currentTrackIdAtom);
@@ -17,7 +17,7 @@ export const Tracks = ({ tracks }: { tracks: Track[] }) => {
 
   return (
     <SubView as="ul" className="flex flex-col gap-2 shrink-0">
-      {tracks.map((track, index) => {
+      {TRACKS.map((track, index) => {
         const isPlaying = currentTrackId === track.id;
 
         return (
