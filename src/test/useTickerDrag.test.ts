@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, renderHook } from "@testing-library/react";
 import type { PointerEvent as ReactPointerEvent } from "react";
-import { tickerX } from "@/atoms/tickerX";
+import { tickerPosition } from "@/lib/tickerPosition";
 import { useTickerDrag } from "@/hooks/useTickerDrag";
 import { audio } from "@/lib/audio";
 import { PIXELS_PER_SECOND, positionAt } from "@/lib/ticker";
@@ -21,7 +21,7 @@ const setup = () => {
 beforeEach(() => {
   Object.defineProperty(audio, "duration", { configurable: true, get: () => 120 });
   Object.defineProperty(audio, "currentTime", { configurable: true, writable: true, value: 10 });
-  tickerX.set(positionAt(10, OFFSET));
+  tickerPosition.set(positionAt(10, OFFSET));
 });
 
 afterEach(() => {

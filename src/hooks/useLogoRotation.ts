@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useMotionValue, animate } from "motion/react";
-import { tickerX } from "@/atoms/tickerX";
+import { tickerPosition } from "@/lib/tickerPosition";
 
 const INITIAL_ANGLE = -12;
 const SENSITIVITY = 0.3;
@@ -11,8 +11,8 @@ export const useLogoRotation = (isPlaying: boolean) => {
 
   useEffect(() => {
     if (isPlaying) {
-      baseXRef.current = tickerX.get() - (rotate.get() - INITIAL_ANGLE) / SENSITIVITY;
-      return tickerX.on("change", (v) => {
+      baseXRef.current = tickerPosition.get() - (rotate.get() - INITIAL_ANGLE) / SENSITIVITY;
+      return tickerPosition.on("change", (v) => {
         rotate.set(INITIAL_ANGLE + (v - baseXRef.current) * SENSITIVITY);
       });
     } else {

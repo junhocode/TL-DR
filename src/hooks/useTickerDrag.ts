@@ -1,6 +1,6 @@
 import { useCallback, useRef } from "react";
 import type { PointerEvent as ReactPointerEvent, RefObject } from "react";
-import { tickerX } from "@/atoms/tickerX";
+import { tickerPosition } from "@/lib/tickerPosition";
 import { audio } from "@/lib/audio";
 import { seekTimeFor } from "@/lib/ticker";
 
@@ -23,7 +23,7 @@ export const useTickerDrag = (
     if (e.pointerId !== activePointerId.current) return;
     const delta = e.clientX - lastPointerX.current;
     lastPointerX.current = e.clientX;
-    tickerX.set(tickerX.get() + delta);
+    tickerPosition.set(tickerPosition.get() + delta);
   }, []);
 
   const handlePointerUp = useCallback((e: ReactPointerEvent) => {
@@ -34,7 +34,7 @@ export const useTickerDrag = (
     const { duration } = audio;
     if (!Number.isFinite(duration) || duration === 0) return;
 
-    audio.currentTime = seekTimeFor(tickerX.get(), offsetRef.current, duration);
+    audio.currentTime = seekTimeFor(tickerPosition.get(), offsetRef.current, duration);
   }, [isDraggingRef, offsetRef]);
 
   return { handlePointerDown, handlePointerMove, handlePointerUp };
