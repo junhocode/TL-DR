@@ -11,13 +11,13 @@ import { BGLogo } from "@/components/BGLogo/BGLogo";
 export const Main = () => {
   const selectedMenu = useAtomValue(selectedMenuAtom);
   const currentTrackId = useAtomValue(currentTrackIdAtom);
-  const isWideWindow = useIsWideScreen();
+  const isWideScreen = useIsWideScreen();
 
   return (
     <main className="relative w-full px-12 md:px-20 md:pt-8 pb-16 md:pb-20 min-h-[calc(100vh-80px)] overflow-y-auto">
       <BGLogo />
 
-      {isWideWindow ? (
+      {isWideScreen ? (
         <div className="relative z-10 flex flex-row gap-40 items-start py-5">
           <div className="shrink-0">
             <Menu />
