@@ -11,7 +11,7 @@ export const useAudioTicker = (isPlaying: boolean, imageUnitWidth: number) => {
 
   const visualX = useTransform(tickerPosition, (v) => wrapPosition(v, imageUnitWidth));
 
-  useTickerSync(isPlaying, imageUnitWidth > 0, offsetRef, isDraggingRef);
+  useTickerSync(isPlaying, offsetRef, isDraggingRef);
   const dragHandlers = useTickerDrag(offsetRef, isDraggingRef);
 
   return { visualX, ...dragHandlers };

@@ -7,7 +7,6 @@ import { COAST_DECEL, offsetFor, positionAt } from "@/lib/ticker";
 
 export const useTickerSync = (
   isPlaying: boolean,
-  isReady: boolean,
   offsetRef: RefObject<number>,
   isDraggingRef: RefObject<boolean>,
 ) => {
@@ -17,7 +16,7 @@ export const useTickerSync = (
   const wasPlaying = useRef(false);
 
   useAnimationFrame(() => {
-    if (!isReady || isDraggingRef.current) return;
+    if (isDraggingRef.current) return;
 
     if (audio.src !== prevSrcRef.current) {
       offsetRef.current = offsetFor(tickerPosition.get(), audio.currentTime);
