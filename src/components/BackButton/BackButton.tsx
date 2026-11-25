@@ -1,11 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-export const BackButton = () => {
+export const BackButton = ({ className }: { className?: string }) => {
   return (
     <Button
-      variant="ghost"
       onClick={() => window.history.back()}
-      className="md:hidden flex items-center gap-2 text-smart-opacity hover:underline"
+      className={cn("md:hidden flex self-start text-smart-opacity hover:underline", className)}
     >
       ← Back
     </Button>

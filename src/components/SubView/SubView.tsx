@@ -15,9 +15,7 @@ export const SubView = ({ children, className = "", as = "div" }: {
   const Component = motion[as];
   return (
     <Component {...PAGE_TRANSITION} className={className}>
-      <div className="mb-4 md:hidden">
-        <BackButton />
-      </div>
+      <BackButton className="mb-4" />
       {children}
     </Component>
   );
