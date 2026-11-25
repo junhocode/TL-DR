@@ -24,7 +24,6 @@ export const Menu = () => {
         return (
           <Button
             key={item.id}
-            variant="ghost"
             onClick={() => handleSelect(item.id)}
             className={`
               flex justify-start group text-base hover:underline

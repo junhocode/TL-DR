@@ -29,7 +29,6 @@ export const Tracks = () => {
             className="group"
           >
             <Button
-              variant="ghost"
               onClick={() => handleTrackClick(track.id)}
               className={`
                 flex w-full h-auto justify-start gap-16 text-base hover:underline
