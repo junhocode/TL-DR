@@ -26,7 +26,7 @@ export const Menu = () => {
             key={item.id}
             onClick={() => handleSelect(item.id)}
             className={`
-              flex justify-start group text-base hover:underline
+              justify-start text-base hover:underline
               ${isActive ? "opacity-80" : "text-smart-opacity"}
             `}
           >

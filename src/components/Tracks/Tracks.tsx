@@ -8,7 +8,6 @@ import { TRACKS } from "@/constants/tracks";
 
 export const Tracks = () => {
   // happy halloween은 육안으로 규격이 맞아보이지 않아 패딩을 추가한다
-
   const [currentTrackId, setCurrentTrackId] = useAtom(currentTrackIdAtom);
 
   const handleTrackClick = (id: string) => {
@@ -26,12 +25,11 @@ export const Tracks = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: index * STAGGER_DELAY }}
-            className="group"
           >
             <Button
               onClick={() => handleTrackClick(track.id)}
               className={`
-                flex w-full h-auto justify-start gap-16 text-base hover:underline
+                flex w-full justify-start gap-16 text-base hover:underline
                 ${isPlaying ? "opacity-80" : "text-smart-opacity"}
               `}
             >

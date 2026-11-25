@@ -33,7 +33,7 @@ export const Footer = () => {
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
           onPointerLeave={handlePointerUp}
-          className="absolute top-0 flex h-full cursor-grab active:cursor-grabbing touch-none"
+          className="absolute top-0 h-full cursor-grab active:cursor-grabbing touch-none"
         >
           <div
             style={{

@@ -15,13 +15,12 @@ export const LinkList = ({ items }: { items: LinkListItem[] }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: index * STAGGER_DELAY }}
-          className="group"
         >
           <a
             href={item.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex gap-8 transition-all text-smart-opacity hover:underline"
+            className="flex text-smart-opacity hover:underline"
           >
             {item.title}
           </a>

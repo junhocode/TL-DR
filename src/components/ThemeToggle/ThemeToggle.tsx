@@ -13,7 +13,7 @@ export const ThemeToggle = () => {
     <Button
       onClick={toggleTheme}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      className="w-5 h-5 !bg-transparent text-foreground text-xl"
+      className="w-5 h-5 text-xl"
     >
       {isDark ? "\u2609" : "\u263D"}
     </Button>

@@ -11,8 +11,8 @@ export const Lyrics = () => {
   return (
     <AnimatePresence mode="wait">
       {currentTrack && (
-        <SubView key={`lyrics-${currentTrack.id}`} className="w-full md:w-auto flex flex-col gap-3 z-10">
-          <div className="flex flex-col border-b border-foreground/10 pb-4">
+        <SubView key={`lyrics-${currentTrack.id}`} className="flex flex-col gap-3">
+          <div className="border-b border-foreground/10 pb-4">
             <h2 className="text-xl opacity-80 tracking-widest">
               {currentTrack.id}. {currentTrack.title}
             </h2>
